@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import ru.eltex.activity.FriendsActivity;
+import ru.eltex.activity.UserActivity;
 
 public class WebClient extends WebViewClient {
 
@@ -23,7 +24,7 @@ public class WebClient extends WebViewClient {
 
         //When authorization success redirect to base activity
         if (url.contains("blank.html#access_token")) {
-            Intent intent = new Intent(context, FriendsActivity.class);
+            Intent intent = new Intent(context, UserActivity.class);
             intent.putExtra("URL", url);
             context.startActivity(intent);
         }

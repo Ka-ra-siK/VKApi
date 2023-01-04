@@ -5,13 +5,18 @@ public class User {
     private String lastName;
     private String birthDate;
     private String status;
+    private String homeTown;
+    private String city;
     private String sex;
 
-    public User(String firstName, String lastName, String birthDate, String status, String sex) {
+    public User(String firstName, String lastName, String birthDate,
+                String status, String homeTown, String city, String sex) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.status = status;
+        this.homeTown = homeTown;
+        this.city = city;
         this.sex = sex;
     }
 
@@ -45,6 +50,22 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getHomeTown() {
+        return homeTown;
+    }
+
+    public void setHomeTown(String homeTown) {
+        this.homeTown = homeTown;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getSex() {

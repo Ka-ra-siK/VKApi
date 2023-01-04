@@ -9,4 +9,7 @@
     <string name="news_str">Лента</string>
     <string name="message_str">Сообщения</string>
     <string name="friends_str">Друзья</string>
+    <string name="birth_day_str">День рождения:</string>
+    <string name="home_town_str">Родной город:</string>
+    <string name="city_str">Город:</string>
 </resources>
