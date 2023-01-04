@@ -2,7 +2,12 @@ package ru.eltex.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebView;
 
 import ru.eltex.R;
@@ -18,9 +23,11 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
+        Log.d("MyWebActivity","what you want to log");
+
         WebView webView = findViewById(R.id.web_link);
         USER_ID = "51509978";
-        webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + USER_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.74");
+        webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + USER_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.74&display=mobile");
         webView.setWebViewClient(new WebClient());
     }
 }

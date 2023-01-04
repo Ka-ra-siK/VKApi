@@ -7,6 +7,7 @@ public class VKUser {
     String lastName;
     @SerializedName("first_name")
     String firstName;
+    String sex;
 
     public String getLastName() {
         return lastName;
@@ -22,5 +23,13 @@ public class VKUser {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

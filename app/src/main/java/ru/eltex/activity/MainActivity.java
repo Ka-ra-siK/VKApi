@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.auth).setOnClickListener(v -> {
-            Intent toWeb = new Intent(getApplicationContext(), WebActivity.class);
+        findViewById(R.id.friend_button).setOnClickListener(v -> {
+            Intent toWeb = new Intent(getApplicationContext(), FriendsActivity.class);
             startActivity(toWeb);
         });
 

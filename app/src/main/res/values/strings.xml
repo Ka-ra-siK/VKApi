@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Eltex VKApi</string>
     <string name="authorization">Авторизация</string>
+    <string name="friends_string">Друзья</string>
     <string name="last_name">Фамилия</string>
     <string name="first_name">Имя</string>
+    <string name="friends_counts_string">Всего друзей:</string>
 </resources>
