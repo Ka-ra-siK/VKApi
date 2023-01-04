@@ -5,4 +5,8 @@
     <string name="last_name">Фамилия</string>
     <string name="first_name">Имя</string>
     <string name="friends_counts_string">Всего друзей:</string>
+    <string name="person_str">Мой кабинет</string>
+    <string name="news_str">Лента</string>
+    <string name="message_str">Сообщения</string>
+    <string name="friends_str">Друзья</string>
 </resources>

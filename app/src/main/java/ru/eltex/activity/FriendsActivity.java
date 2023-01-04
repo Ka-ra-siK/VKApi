@@ -9,8 +9,12 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +25,7 @@ import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.api_service_friends.VKApiService;
 import ru.eltex.api_service_friends.VKResponse;
-import ru.eltex.friends.Friend;
+import ru.eltex.instance.Friend;
 
 public class FriendsActivity extends AppCompatActivity {
 
@@ -32,9 +36,16 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        ListView friendsList = (ListView) findViewById(R.id.friends_list);
+        //Get url from previous activity
+        String url = (String) getIntent().getSerializableExtra("URL");
 
+        //Creating List of friends
+        ListView friendsList = (ListView) findViewById(R.id.friends_list);
         friends = new LinkedList<>();
+
+        //Parsing URL for 'user_id' and 'access token'
+        Map<String, String> map = getQueryMap(url);
+        Set<String> keys = map.keySet();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -42,16 +53,16 @@ public class FriendsActivity extends AppCompatActivity {
                 .build();
 
         VKApiService vkApiService = retrofit.create(VKApiService.class);
-        vkApiService.getFriends(181074460).enqueue(new Callback<VKResponse>() {
+
+        //Creating a getFriends request
+        vkApiService.getFriends(Integer.valueOf(Objects.requireNonNull(map.get("user_id"))), map.get("https://oauth.vk.com/blank.html#access_token")).enqueue(new Callback<VKResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<VKResponse> call, Response<VKResponse> response) {
                 assert response.body() != null;
                 response.body().getResponse().getItems().forEach(element -> {
-                    Log.d("MyWebActivity_FIRSTNAME", element.getFirstName());
-                    Log.d("MyWebActivity_LASTNAME", element.getLastName());
                     friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex()));
-                    System.out.println(element.getFirstName() + " " + element.getLastName());
+
                 });
                 TextView friendsCount = (TextView) findViewById(R.id.friends_count);
                 friendsCount.setText(response.body().getResponse().getCount().toString());
@@ -64,7 +75,17 @@ public class FriendsActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
+    }
 
-
+    //Parsing URL
+    public static Map<String, String> getQueryMap(String url) {
+        String[] params = url.split("&");
+        Map<String, String> map = new HashMap<String, String>();
+        for (String param : params) {
+            String name = param.split("=")[0];
+            String value = param.split("=")[1];
+            map.put(name, value);
+        }
+        return map;
     }
 }

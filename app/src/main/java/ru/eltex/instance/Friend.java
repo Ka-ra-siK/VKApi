@@ -1,4 +1,4 @@
-package ru.eltex.friends;
+package ru.eltex.instance;
 
 public class Friend {
     private String firstName;

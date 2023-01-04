@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ru.eltex.R;
-import ru.eltex.friends.Friend;
+import ru.eltex.instance.Friend;
 
 public class FriendsAdapter extends ArrayAdapter<Friend> {
     private final Context context;
@@ -34,12 +34,15 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("ViewHolder") View view = inflater.inflate(R.layout.list_friends, parent, false);
 
+        //Set first name of friend
         TextView firstName = view.findViewById(R.id.first_name);
         firstName.setText((this.friends.get(position)).getFirstName());
 
+        //Set second name of friend
         TextView lastName = view.findViewById(R.id.last_name);
         lastName.setText((this.friends.get(position)).getLastName());
 
+        //Set image of friend depending on sex
         ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
         if ((Objects.equals(this.friends.get(position).getSex(), "1"))) {
             imageView.setImageResource(R.drawable.woman);
