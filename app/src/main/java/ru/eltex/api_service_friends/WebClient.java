@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import ru.eltex.activity.FriendsActivity;
+import ru.eltex.activity.NewsActivity;
 import ru.eltex.activity.UserActivity;
 
 public class WebClient extends WebViewClient {

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         WebView webView = findViewById(R.id.web_link);
 
         //Authorization request
-        webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + APP_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.74&display=mobile");
+        webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + APP_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,wall&response_type=token&v=5.74&display=mobile");
         webView.setWebViewClient(new WebClient(this));
     }
 
