@@ -2,28 +2,22 @@ package ru.eltex.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import ru.eltex.R;
-import ru.eltex.api_service_friends.WebClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    //ID of the VK application
-    private static String APP_ID = "51509978";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        WebView webView = findViewById(R.id.web_link);
+        Intent intent = new Intent(this, LoginActivity.class);
+        this.startActivity(intent);
 
-        //Authorization request
-        webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + APP_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.74&display=mobile");
-        webView.setWebViewClient(new WebClient(this));
     }
 
 }

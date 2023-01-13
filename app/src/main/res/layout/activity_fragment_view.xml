@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.FragmentViewActivity">
+
+    <Button
+        android:id="@+id/to_friends_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="chooseFragment"
+        android:text="@string/friends_str" />
+
+    <Button
+        android:id="@+id/to_user_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="chooseFragment"
+        android:text="@string/person_str" />
+
+    <FrameLayout
+        android:id="@+id/fragment_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

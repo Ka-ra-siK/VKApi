@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.UserFragment">
 
     <ImageView
         android:layout_width="150dp"
@@ -49,6 +51,7 @@
             android:textSize="24sp"
             android:id="@+id/first_last_name"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:text=""/>
 
     </LinearLayout>
@@ -70,12 +73,12 @@
             android:text="@string/birth_day_str"/>
 
         <TextView
+            android:id="@+id/birth_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
-            android:id="@+id/birth_day"
-            android:text=""/>
+            android:text="Дата"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

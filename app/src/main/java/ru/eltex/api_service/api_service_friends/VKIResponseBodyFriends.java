@@ -1,10 +1,10 @@
-package ru.eltex.api_service_friends;
+package ru.eltex.api_service.api_service_friends;
 
 import java.util.List;
 
-public class VKIResponseBody {
+public class VKIResponseBodyFriends {
     Integer count;
-    List<VKUser> items;
+    List<VKFriend> items;
 
     public Integer getCount() {
         return count;
@@ -14,11 +14,11 @@ public class VKIResponseBody {
         this.count = count;
     }
 
-    public List<VKUser> getItems() {
+    public List<VKFriend> getItems() {
         return items;
     }
 
-    public void setItems(List<VKUser> items) {
+    public void setItems(List<VKFriend> items) {
         this.items = items;
     }
 }

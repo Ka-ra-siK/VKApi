@@ -1,13 +1,12 @@
-package ru.eltex.api_service_friends;
+package ru.eltex.api_service;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import ru.eltex.activity.FriendsActivity;
-import ru.eltex.activity.UserActivity;
+import ru.eltex.activity.FragmentViewActivity;
 
 public class WebClient extends WebViewClient {
 
@@ -19,12 +18,12 @@ public class WebClient extends WebViewClient {
     }
 
     @Override
-    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        super.onPageStarted(view, url, favicon);
-
-        //When authorization success redirect to base activity
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
         if (url.contains("blank.html#access_token")) {
-            Intent intent = new Intent(context, UserActivity.class);
+
+            //When authorization success redirect to base activity
+            Intent intent = new Intent(context, FragmentViewActivity.class);
             intent.putExtra("URL", url);
             context.startActivity(intent);
         }

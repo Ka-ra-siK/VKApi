@@ -1,8 +1,8 @@
-package ru.eltex.api_service_friends;
+package ru.eltex.api_service.api_service_friends;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VKUser {
+public class VKFriend {
     @SerializedName("last_name")
     String lastName;
     @SerializedName("first_name")

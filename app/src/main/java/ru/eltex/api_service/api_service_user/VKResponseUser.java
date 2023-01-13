@@ -1,4 +1,4 @@
-package ru.eltex.api_service_user;
+package ru.eltex.api_service.api_service_user;
 
 public class VKResponseUser {
     VKResponseBodyUser response;

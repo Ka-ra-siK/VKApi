@@ -16,20 +16,18 @@
         android:theme="@style/Theme.Eltex_VKApi"
         tools:targetApi="31">
         <activity
-            android:name=".activity.FriendsActivity"
+            android:name=".activity.FragmentViewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
-            android:name=".activity.UserActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
         </activity>
         <activity
             android:name=".activity.MainActivity"
