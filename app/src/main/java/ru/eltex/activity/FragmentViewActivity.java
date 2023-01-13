@@ -58,13 +58,6 @@ public class FragmentViewActivity extends AppCompatActivity {
                 break;
         }
 
-//        //Setting arguments to fragment
-//        Bundle bundle = new Bundle();
-//        bundle.putString("token", map.get("https://oauth.vk.com/blank.html#access_token"));
-//        bundle.putString("user_id", map.get("user_id"));
-//        assert fragment != null;
-//        fragment.setArguments(bundle);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         assert fragment != null;
