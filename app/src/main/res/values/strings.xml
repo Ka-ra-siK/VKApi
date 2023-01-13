@@ -12,4 +12,6 @@
     <string name="birth_day_str">День рождения:</string>
     <string name="home_town_str">Родной город:</string>
     <string name="city_str">Город:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

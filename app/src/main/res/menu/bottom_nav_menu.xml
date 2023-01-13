@@ -4,19 +4,19 @@
     <item
         android:id="@+id/person_menu"
         android:title="@string/person_str"
-        android:icon="@drawable/person_icon_background"/>
+        android:icon="@drawable/ic_baseline_home_24"/>
     <item
         android:id="@+id/news_menu"
         android:title="@string/news_str"
-        android:icon="@drawable/news_icon_background"/>
+        android:icon="@drawable/ic_baseline_newspaper_24"/>
     <item
         android:id="@+id/message_menu"
         android:title="@string/message_str"
-        android:icon="@drawable/message_icon_background"/>
+        android:icon="@drawable/ic_baseline_message_24"/>
     <item
         android:id="@+id/friends_menu"
         android:title="@string/friends_str"
-        android:icon="@drawable/friend_icon_background"/>
+        android:icon="@drawable/ic_baseline_group_24"/>
 
 
 </menu>
