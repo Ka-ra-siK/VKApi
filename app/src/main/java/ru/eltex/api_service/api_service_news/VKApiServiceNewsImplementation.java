@@ -57,17 +57,30 @@ public class VKApiServiceNewsImplementation {
      * Формат даты
      */
     SimpleDateFormat formatter;
+
+    /**
+     * User token
+     */
+    private String token;
+    /**
+     * ID of user
+     */
+    private String userId;
+
     /**
      * Индикатор обновления списка
      */
     boolean update;
 
-    public VKApiServiceNewsImplementation(Map<String, String> params, VKApiService vkApiServiceNews,
+    public VKApiServiceNewsImplementation(String token, String userID, VKApiService vkApiServiceNews,
                                           RecyclerView recyclerView, SimpleDateFormat formatter) {
+
         this.postList = new LinkedList<>();
         this.startFrom = "";
         this.authorsMap = new HashMap<>();
-        this.params = params;
+//        this.params = params;
+        this.token = token;
+        this.userId = userID;
         this.vkApiServiceNews = vkApiServiceNews;
         this.recyclerViewNews = recyclerView;
         this.formatter = formatter;
@@ -78,7 +91,7 @@ public class VKApiServiceNewsImplementation {
      * Получение новостей от VKApi и создание списка классов Post
      */
     public void getNewsResponse() {
-        vkApiServiceNews.getNews(Integer.valueOf(Objects.requireNonNull(params.get("user_id"))), params.get("access_token"), startFrom, 5.131)
+        vkApiServiceNews.getNews(Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
                 .enqueue(new Callback<VKNewsResponse>() {
                              @Override
                              public void onResponse(@NonNull Call<VKNewsResponse> call, @NonNull Response<VKNewsResponse> response) {

@@ -16,6 +16,7 @@ import java.util.Set;
 
 import ru.eltex.R;
 import ru.eltex.fragments.FriendsFragment;
+import ru.eltex.fragments.NewsFragment;
 import ru.eltex.fragments.UserFragment;
 
 public class FragmentViewActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class FragmentViewActivity extends AppCompatActivity {
         // Save the strings
         editor.putString("token", map.get("https://oauth.vk.com/blank.html#access_token"));
         editor.putString("user_id", map.get("user_id"));
+        editor.putString("expires_in", map.get("expires_in"));
 
         // Apply the changes
         editor.apply();
@@ -55,6 +57,9 @@ public class FragmentViewActivity extends AppCompatActivity {
                 break;
             case R.id.to_user_button:
                 fragment = new UserFragment();
+                break;
+            case R.id.to_news_button:
+                fragment = new NewsFragment(this);
                 break;
         }
 
