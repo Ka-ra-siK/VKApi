@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.NewsAdapter;
 import ru.eltex.adapters.NewsLinearLayoutManager;
-import ru.eltex.api_service_news.VKApiServiceNews;
-import ru.eltex.api_service_news.VKApiServiceNewsImplementation;
+import ru.eltex.api_service.VKApiService;
+import ru.eltex.api_service.api_service_news.VKApiServiceNewsImplementation;
 
 
 /**
@@ -45,7 +45,7 @@ public class NewsActivity extends AppCompatActivity {
                 .baseUrl("https://api.vk.com/method/")
                 .build();
 
-        VKApiServiceNews vkApiServiceNews = retrofit.create(VKApiServiceNews.class);
+        VKApiService vkApiServiceNews = retrofit.create(VKApiService.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
 

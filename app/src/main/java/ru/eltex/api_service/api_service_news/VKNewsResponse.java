@@ -1,4 +1,4 @@
-package ru.eltex.api_service_news;
+package ru.eltex.api_service.api_service_news;
 
 public class VKNewsResponse {
 

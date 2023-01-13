@@ -1,4 +1,4 @@
-package ru.eltex.api_service_news.video;
+package ru.eltex.api_service.api_service_news.video;
 
 /**
  * Изображения к видео

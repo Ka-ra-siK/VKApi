@@ -1,7 +1,7 @@
-package ru.eltex.api_service_news.body.items;
+package ru.eltex.api_service.api_service_news.body.items;
 
-import ru.eltex.api_service_news.photo.VKNewsPhoto;
-import ru.eltex.api_service_news.video.VKNewsVideo;
+import ru.eltex.api_service.api_service_news.photo.VKNewsPhoto;
+import ru.eltex.api_service.api_service_news.video.VKNewsVideo;
 
 /**
  * Информация о контненте содержащемся в записи

@@ -1,4 +1,4 @@
-package ru.eltex.api_service_news;
+package ru.eltex.api_service.api_service_news;
 
 
 import androidx.annotation.NonNull;
@@ -15,9 +15,10 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.eltex.api_service_news.body.groups.VKNewsGroups;
-import ru.eltex.api_service_news.body.items.VKNewsItems;
-import ru.eltex.api_service_news.body.profiles.VKNewsProfiles;
+import ru.eltex.api_service.VKApiService;
+import ru.eltex.api_service.api_service_news.body.groups.VKNewsGroups;
+import ru.eltex.api_service.api_service_news.body.items.VKNewsItems;
+import ru.eltex.api_service.api_service_news.body.profiles.VKNewsProfiles;
 import ru.eltex.instance.Post;
 import ru.eltex.instance.authors.Author;
 import ru.eltex.instance.authors.GroupAuthor;
@@ -47,7 +48,7 @@ public class VKApiServiceNewsImplementation {
     /**
      * Класс созданный Retrofit и содержащий запрос на получение списка новостей
      */
-    private final VKApiServiceNews vkApiServiceNews;
+    private final VKApiService vkApiServiceNews;
     /**
      * RecyclerView с списком новосей
      */
@@ -61,7 +62,7 @@ public class VKApiServiceNewsImplementation {
      */
     boolean update;
 
-    public VKApiServiceNewsImplementation(Map<String, String> params, VKApiServiceNews vkApiServiceNews,
+    public VKApiServiceNewsImplementation(Map<String, String> params, VKApiService vkApiServiceNews,
                                           RecyclerView recyclerView, SimpleDateFormat formatter) {
         this.postList = new LinkedList<>();
         this.startFrom = "";
