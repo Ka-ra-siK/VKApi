@@ -2,7 +2,7 @@ package ru.eltex.api_service.api_service_user;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VKResponseBodyUser {
+public class VKUserResponseBody {
     @SerializedName("last_name")
     String lastName;
     @SerializedName("first_name")

@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_user.VKResponseUser;
+import ru.eltex.api_service.api_service_user.VKUserResponse;
 
 public class UserFragment extends Fragment {
 
@@ -66,11 +66,11 @@ public class UserFragment extends Fragment {
 
         VKApiService vkApiServiceUser = retrofit.create(VKApiService.class);
 
-        vkApiServiceUser.getUser(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKResponseUser>() {
+        vkApiServiceUser.getUser(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKUserResponse>() {
             @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<VKResponseUser> call, Response<VKResponseUser> response) {
+            public void onResponse(Call<VKUserResponse> call, Response<VKUserResponse> response) {
                 assert response.body() != null;
                 firstLastName.setText(response.body().getResponse().getFirstName() + " " + response.body().getResponse().getLastName());
                 status.setText(response.body().getResponse().getStatus());
@@ -80,7 +80,7 @@ public class UserFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<VKResponseUser> call, Throwable t) {
+            public void onFailure(Call<VKUserResponse> call, Throwable t) {
 
             }
 

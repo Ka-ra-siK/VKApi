@@ -7,25 +7,34 @@
     android:orientation="vertical"
     tools:context=".activity.FragmentViewActivity">
 
-    <Button
-        android:id="@+id/to_friends_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="chooseFragment"
-        android:text="@string/friends_str" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/to_user_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="chooseFragment"
-        android:text="@string/person_str" />
-    <Button
-        android:id="@+id/to_news_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="chooseFragment"
-        android:text="Лента" />
+        <Button
+            android:id="@+id/to_friends_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="chooseFragment"
+            android:text="@string/friends_str" />
+
+        <Button
+            android:id="@+id/to_user_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="chooseFragment"
+            android:text="@string/person_str" />
+
+        <Button
+            android:id="@+id/to_news_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="chooseFragment"
+            android:text="Лента" />
+
+    </LinearLayout>
+
 
     <FrameLayout
         android:id="@+id/fragment_view"

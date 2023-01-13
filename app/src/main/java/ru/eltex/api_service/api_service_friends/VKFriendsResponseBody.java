@@ -2,7 +2,7 @@ package ru.eltex.api_service.api_service_friends;
 
 import java.util.List;
 
-public class VKIResponseBodyFriends {
+public class VKFriendsResponseBody {
     Integer count;
     List<VKFriend> items;
 

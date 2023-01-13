@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_friends.VKResponseFriends;
+import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
 import ru.eltex.instance.Friend;
 
 public class FriendsFragment extends Fragment {
@@ -64,10 +64,10 @@ public class FriendsFragment extends Fragment {
         VKApiService vkApiService = retrofit.create(VKApiService.class);
 
         //Creating a getFriends request
-        vkApiService.getFriends(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKResponseFriends>() {
+        vkApiService.getFriends(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKFriendsResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<VKResponseFriends> call, Response<VKResponseFriends> response) {
+            public void onResponse(Call<VKFriendsResponse> call, Response<VKFriendsResponse> response) {
                 assert response.body() != null;
                 response.body().getResponse().getItems().forEach(element -> {
                     friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex()));
@@ -80,7 +80,7 @@ public class FriendsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<VKResponseFriends> call, Throwable t) {
+            public void onFailure(Call<VKFriendsResponse> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
