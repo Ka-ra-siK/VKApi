@@ -15,11 +15,13 @@ import java.util.Map;
 import java.util.Set;
 
 import ru.eltex.R;
+import ru.eltex.databinding.ActivityFragmentViewBinding;
 import ru.eltex.fragments.FriendsFragment;
 import ru.eltex.fragments.NewsFragment;
 import ru.eltex.fragments.UserFragment;
 
 public class FragmentViewActivity extends AppCompatActivity {
+    ActivityFragmentViewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +48,54 @@ public class FragmentViewActivity extends AppCompatActivity {
         // Apply the changes
         editor.apply();
 
+        binding = ActivityFragmentViewBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        //replaceFragment(new UserFragment());
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.person_menu:
+                    replaceFragment(new UserFragment());
+                    break;
+                case R.id.news_menu:
+                    replaceFragment(new NewsFragment(this));
+                    break;
+//                case R.id.message_menu:
+//                    replaceFragment(new MessagesFragment());
+//                    break;
+                case R.id.friends_menu:
+                    replaceFragment(new FriendsFragment(this));
+                    break;
+            }
+            return true;
+        });
     }
 
-    public void chooseFragment(View view){
-        Fragment fragment = null;
+//    public void chooseFragment(View view){
+//        Fragment fragment = null;
+//
+//        switch (view.getId()){
+//            case R.id.friends_menu:
+//                fragment = new FriendsFragment(this);
+//                break;
+//            case R.id.person_menu:
+//                fragment = new UserFragment();
+//                break;
+//            case R.id.news_menu:
+//                fragment = new NewsFragment(this);
+//                break;
+//        }
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        assert fragment != null;
+//        fragmentTransaction.replace(R.id.fragment_view, fragment);
+//        fragmentTransaction.commit();
+//    }
 
-        switch (view.getId()){
-            case R.id.to_friends_button:
-                fragment = new FriendsFragment(this);
-                break;
-            case R.id.to_user_button:
-                fragment = new UserFragment();
-                break;
-            case R.id.to_news_button:
-                fragment = new NewsFragment(this);
-                break;
-        }
-
+    private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        assert fragment != null;
-        fragmentTransaction.replace(R.id.fragment_view, fragment);
+        fragmentTransaction.replace(R.id.fragment_view, fragment); // TODO not web_link
         fragmentTransaction.commit();
     }
 

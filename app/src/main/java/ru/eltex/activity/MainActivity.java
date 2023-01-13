@@ -19,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         WebView webView = findViewById(R.id.web_link);
         webView.loadUrl("https://oauth.vk.com/authorize?client_id=" + APP_ID + "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,wall&response_type=token&v=5.74&display=mobile");
         webView.setWebViewClient(new WebClient(this));
