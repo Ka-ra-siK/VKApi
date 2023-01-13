@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ru.eltex.api_service_news.VKApiServiceNewsImplementation;
+import ru.eltex.api_service.api_service_news.VKApiServiceNewsImplementation;
 
 public class NewsLinearLayoutManager extends LinearLayoutManager {
 

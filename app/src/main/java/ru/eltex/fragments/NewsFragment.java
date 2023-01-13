@@ -1,66 +1,76 @@
 package ru.eltex.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ru.eltex.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NewsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.SimpleDateFormat;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import ru.eltex.R;
+import ru.eltex.adapters.NewsAdapter;
+import ru.eltex.adapters.NewsLinearLayoutManager;
+import ru.eltex.api_service.VKApiService;
+import ru.eltex.api_service.api_service_news.VKApiServiceNewsImplementation;
+
 public class NewsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private String token;
+    private String userId;
+    private final Context context;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public NewsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public NewsFragment(Context context) {
+        this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
+
+        // Get a SharedPreferences instance
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
+
+        token = sharedPreferences.getString("token", "myToken");
+        userId = sharedPreferences.getString("user_id", "myUserId");
+
+//        setContentView(R.layout.activity_news);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+//        String url = (String) getIntent().getSerializableExtra("URL");
+//        Map<String, String> params = getParamsUrl(url);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://api.vk.com/method/")
+                .build();
+
+        VKApiService vkApiServiceNews = retrofit.create(VKApiService.class);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+
+
+        VKApiServiceNewsImplementation vkApiServiceNewsImp = new VKApiServiceNewsImplementation(token, userId,
+                vkApiServiceNews,
+                recyclerView, formatter);
+
+        recyclerView.setLayoutManager(new NewsLinearLayoutManager(context, vkApiServiceNewsImp));
+        recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), context));
+
+        vkApiServiceNewsImp.getNewsResponse();
+
+
+        // Inflate the layout for this fragment
+        return view;
     }
 }

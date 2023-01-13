@@ -1,66 +1,89 @@
 package ru.eltex.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
+import ru.eltex.adapters.FriendsAdapter;
+import ru.eltex.api_service.VKApiService;
+import ru.eltex.api_service.api_service_friends.VKResponseFriends;
+import ru.eltex.instance.Friend;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FriendsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FriendsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    static List<Friend> friends;
+    private final Context context;
+    private String token;
+    private String userId;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FriendsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FriendsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FriendsFragment newInstance(String param1, String param2) {
-        FriendsFragment fragment = new FriendsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public FriendsFragment(Context context) {
+        this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends, container, false);
+
+        // Get a SharedPreferences instance
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
+
+        token = sharedPreferences.getString("token", "myToken");
+        userId = sharedPreferences.getString("user_id", "myUserId");
+
+        //Creating List of friends
+        ListView friendsList = (ListView) view.findViewById(R.id.friends_list);
+        friends = new LinkedList<>();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://api.vk.com/method/")
+                .build();
+
+        VKApiService vkApiService = retrofit.create(VKApiService.class);
+
+        //Creating a getFriends request
+        vkApiService.getFriends(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKResponseFriends>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<VKResponseFriends> call, Response<VKResponseFriends> response) {
+                assert response.body() != null;
+                response.body().getResponse().getItems().forEach(element -> {
+                    friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex()));
+
+                });
+                TextView friendsCount = (TextView) view.findViewById(R.id.friends_count);
+                friendsCount.setText(response.body().getResponse().getCount().toString());
+                FriendsAdapter friendsAdapter = new FriendsAdapter(context, friends);
+                friendsList.setAdapter(friendsAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<VKResponseFriends> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+        return view;
     }
 }
