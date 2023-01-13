@@ -17,6 +17,7 @@ import java.util.Set;
 import ru.eltex.R;
 import ru.eltex.databinding.ActivityFragmentViewBinding;
 import ru.eltex.fragments.FriendsFragment;
+import ru.eltex.fragments.MessagesFragment;
 import ru.eltex.fragments.NewsFragment;
 import ru.eltex.fragments.UserFragment;
 
@@ -59,9 +60,9 @@ public class FragmentViewActivity extends AppCompatActivity {
                 case R.id.news_menu:
                     replaceFragment(new NewsFragment(this));
                     break;
-//                case R.id.message_menu:
-//                    replaceFragment(new MessagesFragment());
-//                    break;
+                case R.id.message_menu:
+                    replaceFragment(new MessagesFragment());
+                    break;
                 case R.id.friends_menu:
                     replaceFragment(new FriendsFragment(this));
                     break;
@@ -69,28 +70,6 @@ public class FragmentViewActivity extends AppCompatActivity {
             return true;
         });
     }
-
-//    public void chooseFragment(View view){
-//        Fragment fragment = null;
-//
-//        switch (view.getId()){
-//            case R.id.friends_menu:
-//                fragment = new FriendsFragment(this);
-//                break;
-//            case R.id.person_menu:
-//                fragment = new UserFragment();
-//                break;
-//            case R.id.news_menu:
-//                fragment = new NewsFragment(this);
-//                break;
-//        }
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        assert fragment != null;
-//        fragmentTransaction.replace(R.id.fragment_view, fragment);
-//        fragmentTransaction.commit();
-//    }
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

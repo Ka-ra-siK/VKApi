@@ -9,10 +9,8 @@
 
     <FrameLayout
         android:id="@+id/fragment_view"
-        android:layout_width="409dp"
-        android:layout_height="600dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,9 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_view"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_view"
+        app:layout_constraintStart_toStartOf="@+id/fragment_view"
         app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
