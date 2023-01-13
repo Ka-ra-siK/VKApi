@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import java.text.SimpleDateFormat;
 
 import retrofit2.Retrofit;
@@ -30,7 +31,6 @@ public class NewsFragment extends Fragment {
     public NewsFragment(Context context) {
         this.context = context;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
