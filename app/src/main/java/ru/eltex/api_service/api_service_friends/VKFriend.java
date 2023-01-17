@@ -12,6 +12,7 @@ public class VKFriend {
     @SerializedName("photo_100")
     String photo100;
     String sex;
+    String id;
 
     public String getLastName() {
         return lastName;
@@ -51,5 +52,13 @@ public class VKFriend {
 
     public void setPhoto100(String photo100) {
         this.photo100 = photo100;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

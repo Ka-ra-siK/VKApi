@@ -11,7 +11,7 @@ public interface VKApiService{
     @GET("friends.get?&v=5.131&fields=contacts,sex,photo_100,photo_200_orig,photo_50&order=hints")
     Call<VKFriendsResponse> getFriends(@Query("user_id") Integer userID, @Query("access_token") String token);
 
-    @GET("users.get?&fields=photo_100,sex,status,home_town,city,bdate&v=5.131")
+    @GET("users.get?&fields=photo_100,sex,status,home_town,bdate&v=5.131")
     Call<VKUserResponse> getUser(@Query("user_ids") String userID, @Query("access_token") String token);
 
     @GET("newsfeed.get?")

@@ -13,9 +13,9 @@ public class VKUser {
     String homeTown;
     @SerializedName("photo_100")
     String photo100;
-    String city;
     String status;
     String sex;
+//    VKUserCity vkUserCity;
 
     public String getLastName() {
         return lastName;
@@ -49,14 +49,6 @@ public class VKUser {
         this.homeTown = homeTown;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -80,4 +72,12 @@ public class VKUser {
     public void setPhoto100(String photo100) {
         this.photo100 = photo100;
     }
+
+//    public VKUserCity getVkUserCity() {
+//        return vkUserCity;
+//    }
+//
+//    public void setVkUserCity(VKUserCity vkUserCity) {
+//        this.vkUserCity = vkUserCity;
+//    }
 }

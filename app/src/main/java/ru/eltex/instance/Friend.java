@@ -3,6 +3,7 @@ package ru.eltex.instance;
 import com.google.gson.annotations.SerializedName;
 
 public class Friend {
+    private String id;
     private String firstName;
     private String lastName;
     private String sex;
@@ -11,7 +12,8 @@ public class Friend {
     @SerializedName("photo_100")
     String photo100;
 
-    public Friend(String firstName, String lastName, String sex, String photo50, String photo100) {
+    public Friend(String id, String firstName, String lastName, String sex, String photo50, String photo100) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
@@ -57,5 +59,13 @@ public class Friend {
 
     public void setPhoto100(String photo100) {
         this.photo100 = photo100;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -70,14 +75,35 @@ public class FriendsFragment extends Fragment {
             public void onResponse(Call<VKFriendsResponse> call, Response<VKFriendsResponse> response) {
                 assert response.body() != null;
                 response.body().getResponse().getItems().forEach(element -> {
-                    friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex(),
-                            element.getPhoto50(), element.getPhoto100()));
+                    friends.add(new Friend(element.getId(), element.getFirstName(), element.getLastName(),
+                            element.getSex(), element.getPhoto50(), element.getPhoto100()));
 
                 });
                 TextView friendsCount = (TextView) view.findViewById(R.id.friends_count);
                 friendsCount.setText(response.body().getResponse().getCount().toString());
                 FriendsAdapter friendsAdapter = new FriendsAdapter(context, friends);
                 friendsList.setAdapter(friendsAdapter);
+                friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        ListAdapter adapter = friendsList.getAdapter();
+//                        int idFriend = (int) friendsList.getItemIdAtPosition(position);
+
+//                        Log.d("FRIEND_ID", String.valueOf(friendsAdapter.getFriendId(position)));
+                        Bundle bundle = new Bundle();
+                        bundle.putString("friend_id", String.valueOf(friendsAdapter.getFriendId(position)));
+                        FriendsAccountFragment friendsAccountFragment = new FriendsAccountFragment();
+                        friendsAccountFragment.setArguments(bundle);
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        // Add the second fragment to the layout
+                        fragmentTransaction.replace(R.id.fragment_view, friendsAccountFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    }
+                });
             }
 
             @Override
@@ -85,6 +111,8 @@ public class FriendsFragment extends Fragment {
                 System.out.println(t.getMessage());
             }
         });
+
+
         return view;
     }
 }
