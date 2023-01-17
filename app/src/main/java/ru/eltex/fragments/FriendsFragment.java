@@ -70,7 +70,8 @@ public class FriendsFragment extends Fragment {
             public void onResponse(Call<VKFriendsResponse> call, Response<VKFriendsResponse> response) {
                 assert response.body() != null;
                 response.body().getResponse().getItems().forEach(element -> {
-                    friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex()));
+                    friends.add(new Friend(element.getFirstName(), element.getLastName(), element.getSex(),
+                            element.getPhoto50(), element.getPhoto100()));
 
                 });
                 TextView friendsCount = (TextView) view.findViewById(R.id.friends_count);

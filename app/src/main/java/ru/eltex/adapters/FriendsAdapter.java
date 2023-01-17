@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.instance.Friend;
 
@@ -44,11 +45,13 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
 
         //Set image of friend depending on sex
         ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
-        if ((Objects.equals(this.friends.get(position).getSex(), "1"))) {
-            imageView.setImageResource(R.drawable.woman);
-        } else {
-            imageView.setImageResource(R.drawable.man);
-        }
+        new ImageLoadTask(this.friends.get(position).getPhoto50(), imageView).execute();
+//        imageView.setImageResource(Integer.parseInt(this.friends.get(position).getPhoto50()));
+//        if ((Objects.equals(this.friends.get(position).getSex(), "1"))) {
+//            imageView.setImageResource(R.drawable.woman);
+//        } else {
+//            imageView.setImageResource(R.drawable.man);
+//        }
 
         return view;
     }
