@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -21,9 +22,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.api_service_user.VKUserResponse;
+import ru.eltex.instance.Friend;
 
 public class UserFragment extends Fragment {
 
@@ -32,6 +35,7 @@ public class UserFragment extends Fragment {
     private TextView status;
     private TextView homeTown;
     private TextView city;
+    private ImageView userImg;
 
     private String token;
     private String userId;
@@ -51,6 +55,7 @@ public class UserFragment extends Fragment {
         status = (TextView) view.findViewById(R.id.status);
         homeTown = (TextView) view.findViewById(R.id.home_town);
         city = (TextView) view.findViewById(R.id.city);
+        userImg = (ImageView) view.findViewById(R.id.user_img);
 
 
         token = sharedPreferences.getString("token", "myToken");
@@ -66,21 +71,29 @@ public class UserFragment extends Fragment {
 
         VKApiService vkApiServiceUser = retrofit.create(VKApiService.class);
 
-        vkApiServiceUser.getUser(Integer.valueOf(Objects.requireNonNull(userId)), token).enqueue(new Callback<VKUserResponse>() {
+        vkApiServiceUser.getUser(userId, token).enqueue(new Callback<VKUserResponse>() {
             @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<VKUserResponse> call, Response<VKUserResponse> response) {
+                Log.d("RETURN_BODY","onResponse()");
                 assert response.body() != null;
-                firstLastName.setText(response.body().getResponse().getFirstName() + " " + response.body().getResponse().getLastName());
-                status.setText(response.body().getResponse().getStatus());
-                birthDate.setText(response.body().getResponse().getBirthDate());
-                homeTown.setText(response.body().getResponse().getHomeTown());
-                city.setText(response.body().getResponse().getCity());
+                response.body().getResponse().forEach(element -> {
+                    Log.d("RETURN_BODY", element.getFirstName());
+                    firstLastName.setText(element.getFirstName() + " " + element.getLastName());
+                    status.setText(element.getStatus());
+                    birthDate.setText(element.getBirthDate());
+                    homeTown.setText(element.getHomeTown());
+                    city.setText(element.getCity());
+                    new ImageLoadTask(element.getPhoto100(), userImg).execute();
+
+                });
             }
 
             @Override
             public void onFailure(Call<VKUserResponse> call, Throwable t) {
+                Log.d("RETURN_BODY","onFailure()");
+                Log.e("RETURN_BODY", String.valueOf(t));
 
             }
 

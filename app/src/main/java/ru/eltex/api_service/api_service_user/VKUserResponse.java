@@ -1,13 +1,15 @@
 package ru.eltex.api_service.api_service_user;
 
-public class VKUserResponse {
-    VKUserResponseBody response;
+import java.util.List;
 
-    public VKUserResponseBody getResponse() {
+public class VKUserResponse {
+    List<VKUser> response;
+
+    public List<VKUser> getResponse() {
         return response;
     }
 
-    public void setResponse(VKUserResponseBody response) {
+    public void setResponse(List<VKUser> response) {
         this.response = response;
     }
 }

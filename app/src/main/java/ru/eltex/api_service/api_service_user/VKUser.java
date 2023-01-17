@@ -2,7 +2,7 @@ package ru.eltex.api_service.api_service_user;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VKUserResponseBody {
+public class VKUser {
     @SerializedName("last_name")
     String lastName;
     @SerializedName("first_name")
@@ -11,6 +11,8 @@ public class VKUserResponseBody {
     String birthDate;
     @SerializedName("home_town")
     String homeTown;
+    @SerializedName("photo_100")
+    String photo100;
     String city;
     String status;
     String sex;
@@ -69,5 +71,13 @@ public class VKUserResponseBody {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getPhoto100() {
+        return photo100;
+    }
+
+    public void setPhoto100(String photo100) {
+        this.photo100 = photo100;
     }
 }
