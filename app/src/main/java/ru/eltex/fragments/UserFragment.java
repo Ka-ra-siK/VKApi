@@ -84,8 +84,6 @@ public class UserFragment extends Fragment {
                     status.setText(element.getStatus());
                     birthDate.setText(element.getBirthDate());
                     homeTown.setText(element.getHomeTown());
-//                    Log.d("RETURN_BODY", element.getVkUserCity().getTitle());
-//                    city.setText(element.getVkUserCity().getTitle());
                     new ImageLoadTask(element.getPhoto100(), userImg).execute();
 
                 });

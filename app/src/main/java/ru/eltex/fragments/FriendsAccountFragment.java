@@ -57,7 +57,6 @@ public class FriendsAccountFragment extends Fragment {
         homeTown = (TextView) view.findViewById(R.id.home_town_friend);
 //        city = (TextView) view.findViewById(R.id.city_friend);
         userImg = (ImageView) view.findViewById(R.id.user_friend_img);
-//        Log.d("FRIEND_ID", friendId);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -72,7 +71,7 @@ public class FriendsAccountFragment extends Fragment {
             public void onResponse(Call<VKUserResponse> call, Response<VKUserResponse> response) {
                 assert response.body() != null;
                 response.body().getResponse().forEach(element -> {
-                    Log.d("GET_FRIEND", element.getFirstName() + " " + element.getLastName());
+                    Log.d("GET_FRIEND", friendId);
                     firstLastName.setText(element.getFirstName() + " " + element.getLastName());
                     status.setText(element.getStatus());
                     birthDate.setText(element.getBirthDate());
