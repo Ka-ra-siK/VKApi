@@ -42,10 +42,6 @@ public class VKApiServiceNewsImplementation {
      */
     Map<Integer, Author> authorsMap;
     /**
-     * ID пользователя, время жизни токена и токен
-     */
-    Map<String, String> params;
-    /**
      * Класс созданный Retrofit и содержащий запрос на получение списка новостей
      */
     private final VKApiService vkApiServiceNews;
@@ -68,17 +64,21 @@ public class VKApiServiceNewsImplementation {
     private String userId;
 
     /**
+     * Тип новостей
+     */
+    private final String typeNews;
+    /**
      * Индикатор обновления списка
      */
     boolean update;
 
-    public VKApiServiceNewsImplementation(String token, String userID, VKApiService vkApiServiceNews,
+    public VKApiServiceNewsImplementation(String typeNews, String token, String userID, VKApiService vkApiServiceNews,
                                           RecyclerView recyclerView, SimpleDateFormat formatter) {
 
         this.postList = new LinkedList<>();
         this.startFrom = "";
         this.authorsMap = new HashMap<>();
-//        this.params = params;
+        this.typeNews = typeNews;
         this.token = token;
         this.userId = userID;
         this.vkApiServiceNews = vkApiServiceNews;
@@ -91,7 +91,7 @@ public class VKApiServiceNewsImplementation {
      * Получение новостей от VKApi и создание списка классов Post
      */
     public void getNewsResponse() {
-        vkApiServiceNews.getNews(Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
+        vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
                 .enqueue(new Callback<VKNewsResponse>() {
                              @Override
                              public void onResponse(@NonNull Call<VKNewsResponse> call, @NonNull Response<VKNewsResponse> response) {

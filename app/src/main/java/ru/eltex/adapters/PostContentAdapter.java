@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
+import ru.eltex.TaskRunner;
 import ru.eltex.api_service.api_service_news.body.items.VKNewsAttachments;
 import ru.eltex.api_service.api_service_news.photo.VKNewsPhotoSizes;
 import ru.eltex.api_service.api_service_news.video.VKNewsVideoImage;
@@ -30,7 +30,7 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     /**
      * Список содержащий загрженные изображения
      */
-    List<Bitmap> images;
+    private Map<Integer, Bitmap> images;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -48,7 +48,7 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
 
     public PostContentAdapter(List<VKNewsAttachments> content) {
         this.content = content;
-        images = new ArrayList<>();
+        images = new HashMap<>();
     }
 
     @NonNull
@@ -82,12 +82,13 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
             url = newsVideoImage.getUrl();
         }
 
-        if (!Objects.equals(url, "")) {
-            try {
-                images.add(new ImageLoadTask(url, holder.getContentView()).execute().get());
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
+        new TaskRunner().executeAsync(new ImageLoadTask(url), (image) -> {
+            images.put(position, image);
+            holder.getContentView().setImageBitmap(image);
+        });
+        if (images.get(position) == null) {
+            holder.getContentView().setImageResource(R.drawable.logo);
+        } else {
             holder.getContentView().setImageBitmap(images.get(position));
         }
 

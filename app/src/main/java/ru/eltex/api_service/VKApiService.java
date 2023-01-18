@@ -2,6 +2,7 @@ package ru.eltex.api_service;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
 import ru.eltex.api_service.api_service_news.VKNewsResponse;
@@ -21,8 +22,8 @@ public interface VKApiService{
     Call<VKUserResponse> getUser(@Query("user_ids") String userID, @Query("access_token") String token);
 
     //Request to show users news
-    @GET("newsfeed.get?")
-    Call<VKNewsResponse> getNews(@Query("user_id") Integer id, @Query("access_token") String accessToken,
+    @GET("newsfeed.{type_news}?")
+    Call<VKNewsResponse> getNews(@Path("type_news") String typeNews, @Query("user_id") Integer id, @Query("access_token") String accessToken,
                                  @Query("start_from") String startFrom, @Query("v") Double version);
 
     //Request to show users wall

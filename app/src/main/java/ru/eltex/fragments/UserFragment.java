@@ -3,6 +3,7 @@ package ru.eltex.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
+import ru.eltex.TaskRunner;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.api_service_user.VKUserResponse;
 import ru.eltex.instance.Friend;
@@ -84,7 +86,10 @@ public class UserFragment extends Fragment {
                     status.setText(element.getStatus());
                     birthDate.setText(element.getBirthDate());
                     homeTown.setText(element.getHomeTown());
-                    new ImageLoadTask(element.getPhoto100(), userImg).execute();
+                    new TaskRunner().executeAsync(new ImageLoadTask(element.getPhoto100()), (image) -> {
+                        userImg.setImageBitmap(image);
+                    });
+                    //new ImageLoadTask(element.getPhoto100(), userImg).execute();
 
                 });
             }

@@ -21,12 +21,15 @@ import ru.eltex.adapters.NewsAdapter;
 import ru.eltex.adapters.NewsLinearLayoutManager;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.api_service_news.VKApiServiceNewsImplementation;
+import ru.eltex.databinding.FragmentNewsBinding;
 
 public class NewsFragment extends Fragment {
 
     private String token;
     private String userId;
     private final Context context;
+    private FragmentNewsBinding binding;
+    private VKApiServiceNewsImplementation vkApiServiceNewsImp;
 
     public NewsFragment(Context context) {
         this.context = context;
@@ -35,21 +38,20 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String typeNews = "get";
+        if ( getArguments() != null) {
+            typeNews =  getArguments().getString("typeNews");
+        }
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
-
-        // Get a SharedPreferences instance
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
+
+        binding = FragmentNewsBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
 
         token = sharedPreferences.getString("token", "myToken");
         userId = sharedPreferences.getString("user_id", "myUserId");
 
-//        setContentView(R.layout.activity_news);
-
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-//        String url = (String) getIntent().getSerializableExtra("URL");
-//        Map<String, String> params = getParamsUrl(url);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -57,20 +59,34 @@ public class NewsFragment extends Fragment {
                 .build();
 
         VKApiService vkApiServiceNews = retrofit.create(VKApiService.class);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-
-
-        VKApiServiceNewsImplementation vkApiServiceNewsImp = new VKApiServiceNewsImplementation(token, userId,
+        RecyclerView recyclerView = binding.recyclerView;
+        vkApiServiceNewsImp = new VKApiServiceNewsImplementation(typeNews, token, userId,
                 vkApiServiceNews,
                 recyclerView, formatter);
 
         recyclerView.setLayoutManager(new NewsLinearLayoutManager(context, vkApiServiceNewsImp));
         recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), context));
 
-        vkApiServiceNewsImp.getNewsResponse();
+        binding.listNews.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("typeNews", "get");
+            NewsFragment newsFragment = new NewsFragment(context);
+            newsFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
+        });
 
+        binding.listRecommended.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("typeNews", "getRecommended");
+            NewsFragment newsFragment = new NewsFragment(context);
+            newsFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
+        });
+
+        vkApiServiceNewsImp.getNewsResponse();
 
         // Inflate the layout for this fragment
         return view;
     }
+
 }

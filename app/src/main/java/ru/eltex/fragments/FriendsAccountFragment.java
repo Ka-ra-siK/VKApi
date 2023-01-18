@@ -21,6 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
+import ru.eltex.TaskRunner;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.api_service_user.VKUserResponse;
 
@@ -77,7 +78,10 @@ public class FriendsAccountFragment extends Fragment {
                     birthDate.setText(element.getBirthDate());
                     homeTown.setText(element.getHomeTown());
 //                    city.setText(element.getVkUserCity().getTitle());
-                    new ImageLoadTask(element.getPhoto100(), userImg).execute();
+                    new TaskRunner().executeAsync(new ImageLoadTask(element.getPhoto100()), (image) -> {
+                        userImg.setImageBitmap(image);
+                    });
+                    //new ImageLoadTask(element.getPhoto100(), userImg).execute();
 
                 });
             }

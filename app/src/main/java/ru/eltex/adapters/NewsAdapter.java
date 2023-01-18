@@ -15,6 +15,7 @@ import java.util.List;
 
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
+import ru.eltex.TaskRunner;
 import ru.eltex.instance.Post;
 
 /**
@@ -131,7 +132,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         Post curPost = vkNewsPosts.get(position);
 
-        new ImageLoadTask(curPost.getAuthor().getPhoto100(), holder.getAvatarAuthorView()).execute();
+        new TaskRunner().executeAsync(new ImageLoadTask(curPost.getAuthor().getPhoto100()), (image) -> {
+            holder.getAvatarAuthorView().setImageBitmap(image);
+        });
         holder.getNameAuthorView().setText(curPost.getAuthor().getName());
         holder.getDatePostView().setText(curPost.getDate());
         holder.getTextNewsView().setText(curPost.getTextPost());
