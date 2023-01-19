@@ -38,6 +38,7 @@ public class UserFragment extends Fragment {
     private TextView homeTown;
     private TextView city;
     private ImageView userImg;
+    private ImageView groupsImg;
 
     private String token;
     private String userId;
@@ -58,6 +59,7 @@ public class UserFragment extends Fragment {
         homeTown = (TextView) view.findViewById(R.id.home_town);
 //        city = (TextView) view.findViewById(R.id.city);
         userImg = (ImageView) view.findViewById(R.id.user_img);
+        groupsImg = (ImageView) view.findViewById(R.id.groups_img);
 
 
         token = sharedPreferences.getString("token", "myToken");
@@ -101,6 +103,14 @@ public class UserFragment extends Fragment {
 
             }
 
+        });
+
+        groupsImg.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("user_id", userId);
+            GroupsFragment groupsFragment = new GroupsFragment("groups,publics", "members_count");
+            groupsFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, groupsFragment).commit();
         });
         return view;
     }

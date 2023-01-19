@@ -14,4 +14,7 @@
     <string name="city_str">Город:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="groups_count_str">Всего групп</string>
+    <string name="name_group_str">Название группы</string>
+    <string name="members_count_str">Количество подписчиков</string>
 </resources>

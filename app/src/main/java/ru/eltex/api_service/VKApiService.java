@@ -5,6 +5,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
+import ru.eltex.api_service.api_service_groups.VKGroupsResponse;
 import ru.eltex.api_service.api_service_news.VKNewsResponse;
 import ru.eltex.api_service.api_service_user.VKUserResponse;
 import ru.eltex.api_service.api_service_wall.VKWallResponse;
@@ -30,4 +31,9 @@ public interface VKApiService{
     @GET("wall.get?")
     Call<VKWallResponse> getWall(@Query("user_id") String id, @Query("access_token") String accessToken,
                                  @Query("v") Double version);
+
+    @GET("groups.get?")
+    Call<VKGroupsResponse> getGroups(@Query("user_id") String id, @Query("access_token") String accessToken,
+                                     @Query("filter") String filters, @Query("extended") Integer extended,
+                                     @Query("fields") String fields, @Query("v") Double version);
 }

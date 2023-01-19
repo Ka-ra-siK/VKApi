@@ -33,6 +33,7 @@ public class FriendsAccountFragment extends Fragment {
     private TextView homeTown;
     private TextView city;
     private ImageView userImg;
+    private ImageView groupsImg;
 
     private String friendId;
     private String token;
@@ -58,6 +59,7 @@ public class FriendsAccountFragment extends Fragment {
         homeTown = (TextView) view.findViewById(R.id.home_town_friend);
 //        city = (TextView) view.findViewById(R.id.city_friend);
         userImg = (ImageView) view.findViewById(R.id.user_friend_img);
+        groupsImg = (ImageView) view.findViewById(R.id.groups_img);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -93,7 +95,13 @@ public class FriendsAccountFragment extends Fragment {
 
             }
         });
-
+        groupsImg.setOnClickListener(view1 -> {
+            Bundle bundleGroups = new Bundle();
+            bundleGroups.putString("user_id", friendId);
+            GroupsFragment groupsFragment = new GroupsFragment("publics", "members_count");
+            groupsFragment.setArguments(bundleGroups);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, groupsFragment).commit();
+        });
 
 
         return view;
