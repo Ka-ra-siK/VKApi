@@ -13,21 +13,19 @@
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/is_online"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:scaleType="centerInside"
             android:layout_alignRight="@+id/avatar"
             android:layout_alignBottom="@+id/avatar"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
-             />
+            android:scaleType="centerInside" />
 
     </RelativeLayout>
-
 
 
     <LinearLayout
@@ -50,8 +48,12 @@
             android:layout_marginLeft="5dp"
             android:text="@string/last_name"
             android:textSize="18sp" />
-
-
     </LinearLayout>
+
+<!--    <ImageView-->
+<!--        android:layout_width="55dp"-->
+<!--        android:layout_height="55dp"-->
+<!--        android:layout_gravity="right|center_vertical"-->
+<!--        android:src="@mipmap/message_icon_foreground"/>-->
 
 </LinearLayout>

@@ -10,12 +10,14 @@ import ru.eltex.api_service.news.VKNewsResponse;
 import ru.eltex.api_service.user.VKUserResponse;
 import ru.eltex.api_service.wall.VKWallResponse;
 
-public interface VKApiService{
+public interface VKApiService {
 
     //Request to show all friends
     //TODO clear fields
-    @GET("friends.get?&v=5.131&fields=contacts,sex,photo_100,photo_200_orig,photo_50,online&order=hints")
-    Call<VKFriendsResponse> getFriends(@Query("user_id") Integer userID, @Query("access_token") String token);
+    @GET("friends.get?")
+    Call<VKFriendsResponse> getFriends(@Query("user_id") Integer userID, @Query("access_token") String token,
+                                       @Query("fields") String fields, @Query("order") String order,
+                                       @Query("v") Double version);
 
     //Request to show user account
     //TODO clear fields
