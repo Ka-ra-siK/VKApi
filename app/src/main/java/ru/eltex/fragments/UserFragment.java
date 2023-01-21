@@ -18,8 +18,9 @@ import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
+import ru.eltex.adapters.SliderAdapter;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.user.VKUserResponse;
-import ru.eltex.instance.Friend;
+import ru.eltex.api_service.user.photo.VKUserPhotoResponse;
+import ru.eltex.api_service.user.photo.VKUserPhotoResponseBody;
 
 public class UserFragment extends Fragment {
 
@@ -42,6 +45,11 @@ public class UserFragment extends Fragment {
     private TextView city;
     private ImageView userImg;
     private ImageView groupsImg;
+    private ArrayList<String> photoURLs;
+    private SliderAdapter sliderAdapter;
+    // creating object of ViewPager
+    ViewPager sliderViewPager;
+
 
     private String token;
     private String userId;
@@ -63,13 +71,10 @@ public class UserFragment extends Fragment {
 //        city = (TextView) view.findViewById(R.id.city);
         userImg = (ImageView) view.findViewById(R.id.user_img);
         groupsImg = (ImageView) view.findViewById(R.id.groups_img);
-
+        sliderViewPager = (ViewPager)  view.findViewById(R.id.photo_view_pager);
 
         token = sharedPreferences.getString("token", "myToken");
         userId = sharedPreferences.getString("user_id", "myUserId");
-
-        Log.d("SHARED_DATA", sharedPreferences.getString("token", token));
-        Log.d("SHARED_DATA", sharedPreferences.getString("user_id", userId));
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -83,7 +88,7 @@ public class UserFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<VKUserResponse> call, Response<VKUserResponse> response) {
-                Log.d("RETURN_BODY","onResponse()");
+                Log.d("RETURN_BODY", "onResponse()");
                 assert response.body() != null;
                 response.body().getResponse().forEach(element -> {
                     Log.d("RETURN_BODY", element.getFirstName());
@@ -105,11 +110,34 @@ public class UserFragment extends Fragment {
 
             @Override
             public void onFailure(Call<VKUserResponse> call, Throwable t) {
-                Log.d("RETURN_BODY","onFailure()");
+                Log.d("RETURN_BODY", "onFailure()");
                 Log.e("RETURN_BODY", String.valueOf(t));
 
             }
 
+        });
+
+
+        VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
+        vkApiServiceUserPhoto.getUserPhoto(userId, token,
+                "profile", "1", Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
+            @Override
+            public void onResponse(Call<VKUserPhotoResponse> call, Response<VKUserPhotoResponse> response) {
+                photoURLs = new ArrayList<>();
+                assert response.body() != null;
+                Log.d("PHOTO", String.valueOf(response.body().getResponse().getCount()));
+                response.body().getResponse().getPhotoResponseItems().forEach(elements -> {
+                    photoURLs.add(elements.getPhotoResponseItemsSizesList().get(1).getUrl());
+                });
+                sliderAdapter = new SliderAdapter(getContext(), photoURLs);
+                sliderViewPager.setAdapter(sliderAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<VKUserPhotoResponse> call, Throwable t) {
+                Log.e("PHOTO", String.valueOf(t));
+
+            }
         });
 
         groupsImg.setOnClickListener(view1 -> {

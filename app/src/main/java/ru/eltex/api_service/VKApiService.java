@@ -8,6 +8,8 @@ import ru.eltex.api_service.friends.VKFriendsResponse;
 import ru.eltex.api_service.groups.VKGroupsResponse;
 import ru.eltex.api_service.news.VKNewsResponse;
 import ru.eltex.api_service.user.VKUserResponse;
+import ru.eltex.api_service.user.photo.VKUserPhotoResponse;
+import ru.eltex.api_service.user.photo.VKUserPhotoResponseBody;
 import ru.eltex.api_service.wall.VKWallResponse;
 
 public interface VKApiService {
@@ -43,4 +45,11 @@ public interface VKApiService {
     Call<VKGroupsResponse> getGroups(@Query("user_id") String id, @Query("access_token") String accessToken,
                                      @Query("filter") String filters, @Query("extended") Integer extended,
                                      @Query("fields") String fields, @Query("v") Double version);
+
+    //Request to show user photos
+    @GET("photos.get?")
+    Call<VKUserPhotoResponse> getUserPhoto(@Query("owner_id") String id, @Query("access_token") String accessToken,
+                                           @Query("album_id") String albumId, @Query("rev") String isRev,
+                                           @Query("v") Double version);
+
 }
