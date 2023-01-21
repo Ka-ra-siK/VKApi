@@ -62,8 +62,18 @@ public class FriendsFragment extends Fragment {
         // Get a SharedPreferences instance
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
 
+        Bundle bundle = getArguments();
+        /*
+         * Проверяем, получаем ли мы id пользователя через
+         * SharedPreferences или через Bundle
+         */
+        if (bundle != null && !bundle.isEmpty()) {
+            userId = bundle.getString("user_id");
+        } else {
+            userId = sharedPreferences.getString("user_id", "myUserId");
+        }
+
         token = sharedPreferences.getString("token", "myToken");
-        userId = sharedPreferences.getString("user_id", "myUserId");
 
         //Creating List of friends
         ListView friendsList = (ListView) view.findViewById(R.id.friends_list);

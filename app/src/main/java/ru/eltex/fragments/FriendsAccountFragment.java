@@ -40,6 +40,7 @@ public class FriendsAccountFragment extends Fragment {
     private TextView city;
     private ImageView userImg;
     private ImageView groupsImg;
+    private ImageView friendsImg;
     private ImageView isOnlineImage;
 
     private String friendId;
@@ -67,6 +68,7 @@ public class FriendsAccountFragment extends Fragment {
 //        city = (TextView) view.findViewById(R.id.city_friend);
         userImg = (ImageView) view.findViewById(R.id.user_friend_img);
         groupsImg = (ImageView) view.findViewById(R.id.groups_img);
+        friendsImg = (ImageView) view.findViewById(R.id.friends_img);
         isOnlineImage = (ImageView) view.findViewById(R.id.is_online_friend);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -127,6 +129,20 @@ public class FriendsAccountFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+
+        friendsImg.setOnClickListener(view2 ->{
+            Bundle bundleGroups = new Bundle();
+            bundleGroups.putString("user_id", friendId);
+            FriendsFragment friendsFragment = new FriendsFragment(this.getContext());
+            friendsFragment.setArguments(bundleGroups);
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_view, friendsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
 
 
         return view;
