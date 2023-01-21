@@ -2,7 +2,7 @@ package ru.eltex.instance;
 
 import java.util.List;
 
-import ru.eltex.api_service.api_service_news.body.items.VKNewsAttachments;
+import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 import ru.eltex.instance.authors.Author;
 
 /**

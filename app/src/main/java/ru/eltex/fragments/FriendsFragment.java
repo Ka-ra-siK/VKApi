@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
+import ru.eltex.api_service.friends.VKFriendsResponse;
 import ru.eltex.instance.Friend;
 
 public class FriendsFragment extends Fragment {

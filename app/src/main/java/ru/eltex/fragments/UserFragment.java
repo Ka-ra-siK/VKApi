@@ -3,7 +3,6 @@ package ru.eltex.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,8 +24,7 @@ import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_user.VKUserResponse;
-import ru.eltex.instance.Friend;
+import ru.eltex.api_service.user.VKUserResponse;
 
 public class UserFragment extends Fragment {
 
