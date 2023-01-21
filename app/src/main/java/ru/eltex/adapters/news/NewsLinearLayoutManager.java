@@ -1,4 +1,4 @@
-package ru.eltex.adapters;
+package ru.eltex.adapters.news;
 
 import android.content.Context;
 
