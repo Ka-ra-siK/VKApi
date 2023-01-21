@@ -1,4 +1,4 @@
-package ru.eltex.adapters;
+package ru.eltex.adapters.news;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -17,9 +17,13 @@ import java.util.Map;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
+import ru.eltex.adapters.news.content.AudioContent;
+import ru.eltex.adapters.news.content.DocContent;
+import ru.eltex.adapters.news.content.IContent;
+import ru.eltex.adapters.news.content.LinkContent;
+import ru.eltex.adapters.news.content.PhotoContent;
+import ru.eltex.adapters.news.content.VideoContent;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
-import ru.eltex.api_service.news.photo.VKNewsPhotoSizes;
-import ru.eltex.api_service.news.video.VKNewsVideoImage;
 
 public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.ViewHolder> {
 
@@ -30,7 +34,12 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     /**
      * Список содержащий загрженные изображения
      */
-    private Map<Integer, Bitmap> images;
+    private final Map<Integer, Bitmap> images;
+
+    /**
+     * Хранилище способов отображения контента в зависимости от содержимого
+     */
+    private final Map<String, IContent> getContentStore;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -49,6 +58,12 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     public PostContentAdapter(List<VKNewsAttachments> content) {
         this.content = content;
         images = new HashMap<>();
+        getContentStore = new HashMap<>();
+        getContentStore.put("photo", new PhotoContent());
+        getContentStore.put("video", new VideoContent());
+        getContentStore.put("link", new LinkContent());
+        getContentStore.put("doc", new DocContent());
+        getContentStore.put("audio", new AudioContent());
     }
 
     @NonNull
@@ -65,33 +80,14 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     @Override
     public void onBindViewHolder(@NonNull PostContentAdapter.ViewHolder holder, int position) {
 
-        String url = "";
-
-        if (content.get(position).getType().equals("photo")) {
-            for (VKNewsPhotoSizes photoSizes : content.get(position).getPhoto().getSizes()) {
-                if (photoSizes.getType().equals("z")) {
-                    url = photoSizes.getUrl();
-                } else if (photoSizes.getType().equals("x") && url.equals("")) {
-                    url = photoSizes.getUrl();
-                }
-            }
-        }
-        if (content.get(position).getType().equals("video")) {
-            int sizeNewsVideoImage = content.get(position).getVideo().getImage().size();
-            VKNewsVideoImage newsVideoImage = content.get(position).getVideo().getImage().get(sizeNewsVideoImage - 1);
-            url = newsVideoImage.getUrl();
-        }
+        VKNewsAttachments vkNewsAttachments = content.get(position);
+        String url = getContentStore.get(vkNewsAttachments.getType()).getContent(vkNewsAttachments);
 
         new TaskRunner().executeAsync(new ImageLoadTask(url), (image) -> {
             images.put(position, image);
             holder.getContentView().setImageBitmap(image);
         });
-        if (images.get(position) == null) {
-            holder.getContentView().setImageResource(R.drawable.logo);
-        } else {
-            holder.getContentView().setImageBitmap(images.get(position));
-        }
-
+        holder.getContentView().setImageBitmap(images.get(position));
     }
 
     @Override
