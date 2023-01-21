@@ -64,7 +64,15 @@ public class GroupsFragment extends Fragment {
         token = sharedPreferences.getString("token", "myToken");
 
         Bundle bundle = getArguments();
-        userId = bundle.getString("user_id");
+        /*
+         * Проверяем, получаем ли мы id пользователя через
+         * SharedPreferences или через Bundle
+         */
+        if (bundle != null && !bundle.isEmpty()) {
+            userId = bundle.getString("user_id");
+        } else {
+            userId = sharedPreferences.getString("user_id", "myUserId");
+        }
 
         ListView groupList = (ListView) view.findViewById(R.id.groups_list);
         groups = new LinkedList<>();
