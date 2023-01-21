@@ -23,10 +23,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
+import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.adapters.GroupsAdapter;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.groups.VKGroup;
 import ru.eltex.api_service.groups.VKGroupsResponse;
+import ru.eltex.instance.Friend;
 
 /**
  * Фрагмент отвечающий за получение групп и подготовку к отображению
@@ -62,16 +64,7 @@ public class GroupsFragment extends Fragment {
         token = sharedPreferences.getString("token", "myToken");
 
         Bundle bundle = getArguments();
-
-        /*
-         * Проверяем, получаем ли мы id пользователя через
-         * SharedPreferences или через Bundle
-         */
-        if (bundle != null && !bundle.isEmpty()) {
-            userId = bundle.getString("user_id");
-        } else {
-            userId = sharedPreferences.getString("user_id", "myUserId");
-        }
+        userId = bundle.getString("user_id");
 
         ListView groupList = (ListView) view.findViewById(R.id.groups_list);
         groups = new LinkedList<>();
@@ -97,7 +90,7 @@ public class GroupsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<VKGroupsResponse> call, Throwable t) {
-                Log.d("GET_GROUPS", "onFailure()");
+                Log.d("GET_GROUPS","onFailure()");
                 Log.e("GET_GROUPS", String.valueOf(t));
             }
         });
