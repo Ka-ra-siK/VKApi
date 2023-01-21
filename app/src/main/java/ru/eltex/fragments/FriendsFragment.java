@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,8 @@ public class FriendsFragment extends Fragment {
                 assert response.body() != null;
                 response.body().getResponse().getItems().forEach(element -> {
                     friends.add(new Friend(element.getId(), element.getFirstName(), element.getLastName(),
-                            element.getSex(), element.getPhoto50(), element.getPhoto100()));
+                            element.getSex(), element.getPhoto50(), element.getPhoto100(),
+                            element.getOnline(), element.getOnlineMobile()));
 
                 });
                 TextView friendsCount = (TextView) view.findViewById(R.id.friends_count);
@@ -84,10 +86,6 @@ public class FriendsFragment extends Fragment {
                 friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        ListAdapter adapter = friendsList.getAdapter();
-//                        int idFriend = (int) friendsList.getItemIdAtPosition(position);
-
-//                        Log.d("FRIEND_ID", String.valueOf(friendsAdapter.getFriendId(position)));
                         Bundle bundle = new Bundle();
                         bundle.putString("friend_id", String.valueOf(friendsAdapter.getFriendId(position)));
                         FriendsAccountFragment friendsAccountFragment = new FriendsAccountFragment();

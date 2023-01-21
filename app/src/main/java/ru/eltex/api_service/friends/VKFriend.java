@@ -11,6 +11,9 @@ public class VKFriend {
     String photo50;
     @SerializedName("photo_100")
     String photo100;
+    @SerializedName("online_mobile")
+    String onlineMobile;
+    String online;
     String sex;
     String id;
 
@@ -60,5 +63,21 @@ public class VKFriend {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOnlineMobile() {
+        return onlineMobile;
+    }
+
+    public void setOnlineMobile(String onlineMobile) {
+        this.onlineMobile = onlineMobile;
+    }
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
     }
 }

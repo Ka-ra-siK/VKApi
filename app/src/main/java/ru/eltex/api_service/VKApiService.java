@@ -14,7 +14,7 @@ public interface VKApiService{
 
     //Request to show all friends
     //TODO clear fields
-    @GET("friends.get?&v=5.131&fields=contacts,sex,photo_100,photo_200_orig,photo_50&order=hints")
+    @GET("friends.get?&v=5.131&fields=contacts,sex,photo_100,photo_200_orig,photo_50,online&order=hints")
     Call<VKFriendsResponse> getFriends(@Query("user_id") Integer userID, @Query("access_token") String token);
 
     //Request to show user account

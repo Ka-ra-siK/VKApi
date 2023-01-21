@@ -1,35 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
 
         <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_margin="15dp"
-            android:id="@+id/avatar" />
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/is_online"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerInside"
+            android:layout_alignRight="@+id/avatar"
+            android:layout_alignBottom="@+id/avatar"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+             />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:text="@string/first_name"
+            android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/last_name"
-                android:textSize="18sp"
-                android:text="@string/last_name" />
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/last_name"
+            android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/first_name"
-                android:textSize="18sp"
-                android:text="@string/first_name" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

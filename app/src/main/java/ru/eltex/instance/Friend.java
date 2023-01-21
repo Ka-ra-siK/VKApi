@@ -1,5 +1,7 @@
 package ru.eltex.instance;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Friend {
@@ -11,14 +13,21 @@ public class Friend {
     String photo50;
     @SerializedName("photo_100")
     String photo100;
+    String onlineMobile;
+    String online;
 
-    public Friend(String id, String firstName, String lastName, String sex, String photo50, String photo100) {
+    public Friend(String id, String firstName, String lastName, String sex, String photo50, String photo100,
+                  String online, String onlineMobile) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
         this.photo50 = photo50;
         this.photo100 = photo100;
+        this.online = online;
+        this.onlineMobile = onlineMobile;
+//        Log.d("ONLINE", this.lastName + " " + this.firstName +
+//                " Online: " + this.online + " Online Mobile: " + this.onlineMobile);
     }
 
     public String getFirstName() {
@@ -67,5 +76,21 @@ public class Friend {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOnlineMobile() {
+        return onlineMobile;
+    }
+
+    public void setOnlineMobile(String onlineMobile) {
+        this.onlineMobile = onlineMobile;
+    }
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
     }
 }

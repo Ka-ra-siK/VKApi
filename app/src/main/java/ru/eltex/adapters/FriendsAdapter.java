@@ -2,6 +2,8 @@ package ru.eltex.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -50,11 +54,24 @@ public class FriendsAdapter extends ArrayAdapter<Friend> {
         lastName.setText((this.friends.get(position)).getLastName());
 
         //Set image of friend depending on sex
-        ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
+        ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
+        ImageView isOnlineImage = (ImageView) view.findViewById(R.id.is_online);
         new TaskRunner().executeAsync(new ImageLoadTask(this.friends.get(position).getPhoto50()), (image) -> {
-            imageView.setImageBitmap(image);
+            avatar.setImageBitmap(image);
+            Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
+            roundedBitmapDrawable.setCircular(true);
+            avatar.setImageDrawable(roundedBitmapDrawable);
         });
-        //new ImageLoadTask(this.friends.get(position).getPhoto50(), imageView).execute();
+
+        if (Objects.equals(this.friends.get(position).getOnline(), "1")){
+            if (this.friends.get(position).getOnlineMobile() != null){
+                isOnlineImage.setImageResource(R.drawable.phone);
+            }else {
+                isOnlineImage.setImageResource(R.drawable.is_online);
+            }
+        }
+
 
         return view;
     }
