@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
@@ -90,6 +93,10 @@ public class UserFragment extends Fragment {
                     homeTown.setText(element.getHomeTown());
                     new TaskRunner().executeAsync(new ImageLoadTask(element.getPhoto100()), (image) -> {
                         userImg.setImageBitmap(image);
+                        Bitmap bitmap = ((BitmapDrawable) userImg.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                        roundedBitmapDrawable.setCircular(true);
+                        userImg.setImageDrawable(roundedBitmapDrawable);
                     });
                     //new ImageLoadTask(element.getPhoto100(), userImg).execute();
 

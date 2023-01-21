@@ -13,6 +13,9 @@ public class VKUser {
     String homeTown;
     @SerializedName("photo_100")
     String photo100;
+    @SerializedName("online_mobile")
+    String onlineMobile;
+    String online;
     String status;
     String sex;
 //    VKUserCity vkUserCity;
@@ -73,7 +76,23 @@ public class VKUser {
         this.photo100 = photo100;
     }
 
-//    public VKUserCity getVkUserCity() {
+    public String getOnlineMobile() {
+        return onlineMobile;
+    }
+
+    public void setOnlineMobile(String onlineMobile) {
+        this.onlineMobile = onlineMobile;
+    }
+
+    public String getOnline() {
+        return online;
+    }
+
+    public void setOnline(String online) {
+        this.online = online;
+    }
+
+    //    public VKUserCity getVkUserCity() {
 //        return vkUserCity;
 //    }
 //

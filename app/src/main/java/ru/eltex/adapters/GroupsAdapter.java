@@ -2,6 +2,8 @@ package ru.eltex.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import java.util.List;
 
@@ -50,6 +54,10 @@ public class GroupsAdapter extends ArrayAdapter<VKGroup> {
         ImageView imageView = (ImageView) view.findViewById(R.id.avatar_group);
         new TaskRunner().executeAsync(new ImageLoadTask(this.groups.get(position).getPhoto50()), (image) -> {
             imageView.setImageBitmap(image);
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
+            roundedBitmapDrawable.setCircular(true);
+            imageView.setImageDrawable(roundedBitmapDrawable);
         });
 
         return view;

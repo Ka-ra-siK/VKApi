@@ -19,7 +19,7 @@ public interface VKApiService{
 
     //Request to show user account
     //TODO clear fields
-    @GET("users.get?&fields=photo_100,sex,status,home_town,bdate&v=5.131")
+    @GET("users.get?&fields=photo_100,sex,status,home_town,bdate,online&v=5.131")
     Call<VKUserResponse> getUser(@Query("user_ids") String userID, @Query("access_token") String token);
 
     //Request to show users news

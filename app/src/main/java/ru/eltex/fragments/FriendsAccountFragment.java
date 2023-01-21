@@ -2,6 +2,8 @@ package ru.eltex.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +40,7 @@ public class FriendsAccountFragment extends Fragment {
     private TextView city;
     private ImageView userImg;
     private ImageView groupsImg;
+    private ImageView isOnlineImage;
 
     private String friendId;
     private String token;
@@ -60,6 +67,7 @@ public class FriendsAccountFragment extends Fragment {
 //        city = (TextView) view.findViewById(R.id.city_friend);
         userImg = (ImageView) view.findViewById(R.id.user_friend_img);
         groupsImg = (ImageView) view.findViewById(R.id.groups_img);
+        isOnlineImage = (ImageView) view.findViewById(R.id.is_online_friend);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -82,7 +90,19 @@ public class FriendsAccountFragment extends Fragment {
 //                    city.setText(element.getVkUserCity().getTitle());
                     new TaskRunner().executeAsync(new ImageLoadTask(element.getPhoto100()), (image) -> {
                         userImg.setImageBitmap(image);
+                        Bitmap bitmap = ((BitmapDrawable) userImg.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                        roundedBitmapDrawable.setCircular(true);
+                        userImg.setImageDrawable(roundedBitmapDrawable);
                     });
+
+                    if (Objects.equals(element.getOnline(), "1")){
+                        if (element.getOnlineMobile() != null){
+                            isOnlineImage.setImageResource(R.drawable.phone);
+                        }else {
+                            isOnlineImage.setImageResource(R.drawable.is_online);
+                        }
+                    }
                     //new ImageLoadTask(element.getPhoto100(), userImg).execute();
 
                 });

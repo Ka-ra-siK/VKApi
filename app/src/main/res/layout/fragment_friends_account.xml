@@ -6,13 +6,30 @@
     android:orientation="vertical"
     tools:context=".fragments.FriendsAccountFragment">
 
-    <ImageView
-        android:id="@+id/user_friend_img"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/man"></ImageView>
+        android:layout_marginTop="18dp">
+
+        <ImageView
+            android:id="@+id/user_friend_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/man" />
+
+        <ImageView
+            android:id="@+id/is_online_friend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignRight="@+id/user_friend_img"
+            android:layout_alignBottom="@+id/user_friend_img"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="centerInside" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,9 +86,9 @@
             android:src="@drawable/ic_baseline_message_24" />
 
         <ImageView
+            android:id="@+id/groups_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/groups_img"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
             android:src="@drawable/user_groups" />
@@ -127,29 +144,29 @@
 
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="18dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginRight="18dp"-->
-<!--        android:orientation="horizontal">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="18dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginRight="18dp"-->
+    <!--        android:orientation="horizontal">-->
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/city_str"-->
-<!--            android:textSize="18sp" />-->
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="@string/city_str"-->
+    <!--            android:textSize="18sp" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/city_friend"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text=""-->
-<!--            android:textSize="18sp" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/city_friend"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text=""-->
+    <!--            android:textSize="18sp" />-->
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
 </LinearLayout>
