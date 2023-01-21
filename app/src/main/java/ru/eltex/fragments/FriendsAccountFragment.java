@@ -120,7 +120,12 @@ public class FriendsAccountFragment extends Fragment {
             bundleGroups.putString("user_id", friendId);
             GroupsFragment groupsFragment = new GroupsFragment("publics", "members_count");
             groupsFragment.setArguments(bundleGroups);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, groupsFragment).commit();
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_view, groupsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
 
