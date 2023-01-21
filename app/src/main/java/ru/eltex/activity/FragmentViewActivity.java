@@ -52,7 +52,7 @@ public class FragmentViewActivity extends AppCompatActivity {
 
         binding = ActivityFragmentViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //replaceFragment(new UserFragment());
+        replaceFragment(new UserFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.person_menu:

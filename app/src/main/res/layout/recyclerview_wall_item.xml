@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="15dp">
 
     <RelativeLayout
         android:id="@+id/author_data"
@@ -57,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
             android:text="Text news"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -76,7 +79,13 @@
         android:id="@+id/counters_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/post_content">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/likes_icon_foreground"/>
 
 
         <TextView
@@ -84,18 +93,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="15dp"
-            android:text="Likes: "
+            android:layout_marginStart="25dp"
             android:textColor="#000000"
             android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/likes_count"
+            android:layout_marginStart="10dp"
+            android:src="@mipmap/reposts_icon_foreground"/>
 
         <TextView
             android:id="@+id/reposts_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="40dp"
             android:layout_toEndOf="@id/likes_count"
-            android:text="Reposts: "
             android:textColor="#000000"
             android:textSize="20sp" />
 
