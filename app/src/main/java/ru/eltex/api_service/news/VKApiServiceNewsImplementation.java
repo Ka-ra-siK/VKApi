@@ -1,6 +1,8 @@
 package ru.eltex.api_service.news;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,48 +90,35 @@ public class VKApiServiceNewsImplementation {
     }
 
     /**
-     * Получение новостей от VKApi и создание списка классов Post
+     * Реализация интерфейса Callback для получения списка новостей
+     */
+    class NewsCallback implements Callback<VKNewsResponse> {
+        @Override
+        public void onResponse(Call<VKNewsResponse> call, Response<VKNewsResponse> response) {
+            assert response.body() != null;
+            VKNewsResponseBody responseBody = response.body().getResponse();
+            parsResponse(responseBody);
+            setUpdate(false);
+        }
+
+        @Override
+        public void onFailure(Call<VKNewsResponse> call, Throwable t) {
+            Log.d("GET_NEWS","onFailure()");
+            Log.e("GET_NEWS", String.valueOf(t));
+        }
+    }
+
+    /**
+     * Получение новостей от VKApi в зависимости от известен ли следующий фрагмент
      */
     public void getNewsResponse() {
-        vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
-                .enqueue(new Callback<VKNewsResponse>() {
-                             @Override
-                             public void onResponse(@NonNull Call<VKNewsResponse> call, @NonNull Response<VKNewsResponse> response) {
-                                 assert response.body() != null;
-                                 VKNewsResponseBody responseBody = response.body().getResponse();
-
-                                 authorsMap = getMapAuthors(responseBody.getGroups(), responseBody.getProfiles());
-
-                                 int sizePostList = recyclerViewNews.getAdapter().getItemCount();
-                                 startFrom = responseBody.getNextFrom();
-                                 List<VKNewsItems> vkNewsItemsList = responseBody.getItems();
-
-                                 for (VKNewsItems vkNewsItems : vkNewsItemsList) {
-                                     if (vkNewsItems.getLikes() != null) {
-
-                                         Date date = new java.util.Date(vkNewsItems.getDate() * 1000L);
-
-                                         postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getSourceID()),
-                                                 formatter.format(date.getTime()), vkNewsItems.getTextNewsItem(), vkNewsItems.getAttachments(),
-                                                 vkNewsItems.getLikes().getCount(), vkNewsItems.getReposts().getCount()
-                                         ));
-                                     }
-                                 }
-
-                                 Objects.requireNonNull(recyclerViewNews.getAdapter())
-                                         .notifyItemRangeInserted(sizePostList, postList.size());
-                                 setUpdate(false);
-
-
-                             }
-
-                             @Override
-                             public void onFailure(Call<VKNewsResponse> call, Throwable t) {
-                                 System.out.println(t.getMessage());
-                             }
-                         }
-
-                );
+        if (Objects.equals(startFrom, "")) {
+            vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, 5.131)
+                    .enqueue(new NewsCallback());
+        } else {
+            vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
+                    .enqueue(new NewsCallback());
+        }
     }
 
     public List<Post> getPostList() {
@@ -164,5 +153,30 @@ public class VKApiServiceNewsImplementation {
         }
         return ownAuthorsMap;
 
+    }
+
+    /**
+     * Получение новостей от VKApi и создание списка классов Post
+     * и Map с авторами
+     */
+    private void parsResponse(VKNewsResponseBody responseBody) {
+        startFrom = responseBody.getNextFrom();
+        authorsMap = getMapAuthors(responseBody.getGroups(), responseBody.getProfiles());
+        int sizePostList = recyclerViewNews.getAdapter().getItemCount();
+        List<VKNewsItems> vkNewsItemsList = responseBody.getItems();
+
+        for (VKNewsItems vkNewsItems : vkNewsItemsList) {
+            if (vkNewsItems.getLikes() != null) {
+
+                Date date = new java.util.Date(vkNewsItems.getDate() * 1000L);
+
+                postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getSourceID()),
+                        formatter.format(date.getTime()), vkNewsItems.getTextNewsItem(), vkNewsItems.getAttachments(),
+                        vkNewsItems.getLikes().getCount(), vkNewsItems.getReposts().getCount()
+                ));
+            }
+        }
+        Objects.requireNonNull(recyclerViewNews.getAdapter())
+                .notifyItemRangeInserted(sizePostList, postList.size());
     }
 }

@@ -27,6 +27,11 @@ public interface VKApiService{
     Call<VKNewsResponse> getNews(@Path("type_news") String typeNews, @Query("user_id") Integer id, @Query("access_token") String accessToken,
                                  @Query("start_from") String startFrom, @Query("v") Double version);
 
+    //Request to show users news
+    @GET("newsfeed.{type_news}?")
+    Call<VKNewsResponse> getNews(@Path("type_news") String typeNews, @Query("user_id") Integer id, @Query("access_token") String accessToken,
+                                 @Query("v") Double version);
+
     //Request to show users wall
     @GET("wall.get?")
     Call<VKWallResponse> getWall(@Query("user_id") String id, @Query("access_token") String accessToken,
