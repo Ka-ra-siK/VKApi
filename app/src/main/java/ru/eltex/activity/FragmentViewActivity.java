@@ -17,6 +17,7 @@ import java.util.Set;
 import ru.eltex.R;
 import ru.eltex.databinding.ActivityFragmentViewBinding;
 import ru.eltex.fragments.FriendsFragment;
+import ru.eltex.fragments.GroupsFragment;
 import ru.eltex.fragments.MessagesFragment;
 import ru.eltex.fragments.NewsFragment;
 import ru.eltex.fragments.UserFragment;
@@ -60,8 +61,8 @@ public class FragmentViewActivity extends AppCompatActivity {
                 case R.id.news_menu:
                     replaceFragment(new NewsFragment(this));
                     break;
-                case R.id.message_menu:
-                    replaceFragment(new MessagesFragment());
+                case R.id.group_menu:
+                    replaceFragment(new GroupsFragment("groups,publics", "members_count"));
                     break;
                 case R.id.friends_menu:
                     replaceFragment(new FriendsFragment(this));

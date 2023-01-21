@@ -10,9 +10,9 @@
         android:title="@string/news_str"
         android:icon="@drawable/ic_baseline_newspaper_24"/>
     <item
-        android:id="@+id/message_menu"
-        android:title="@string/message_str"
-        android:icon="@drawable/ic_baseline_message_24"/>
+        android:id="@+id/group_menu"
+        android:title="@string/group_str"
+        android:icon="@drawable/user_groups"/>
     <item
         android:id="@+id/friends_menu"
         android:title="@string/friends_str"
