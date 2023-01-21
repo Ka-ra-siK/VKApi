@@ -1,6 +1,14 @@
 package ru.eltex.api_service.user;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class VKUser {
     @SerializedName("last_name")
@@ -20,6 +28,17 @@ public class VKUser {
     String sex;
 //    VKUserCity vkUserCity;
 
+    final static String inputFullDate = "d.M.yyyy";
+    final static String inputShortDate = "d.M";
+    final static String outputFullDate = "dd.MM.yyyy";
+    final static String outputShortDate = "dd.MM";
+
+    @SuppressLint("SimpleDateFormat")
+    DateFormat inputFull = new SimpleDateFormat(inputFullDate);
+    @SuppressLint("SimpleDateFormat")
+    DateFormat outputFull = new SimpleDateFormat(outputFullDate);
+
+
     public String getLastName() {
         return lastName;
     }
@@ -37,10 +56,36 @@ public class VKUser {
     }
 
     public String getBirthDate() {
+        if (birthDate != null && (birthDate.matches("\\d\\.\\d{2}") ||
+                birthDate.matches("\\d\\.\\d") ||
+                birthDate.matches("\\d\\.\\d\\.\\d{4}") ||
+                birthDate.matches("\\d\\.\\d{2}\\.\\d{4}")))
+        {
+            Log.d("birthdate", "regex1");
+            birthDate = "0" + birthDate;
+        }
+        if (birthDate != null && (birthDate.matches("\\d{2}\\.\\d") ||
+                birthDate.matches("\\d{2}\\.\\d\\.\\d{4}")))
+        {
+            Log.d("birthdate", "regex2");
+            String[] strArray = null;
+            String newBirthDate = "";
+            strArray = birthDate.split("\\.");
+            strArray[1] = "0" + strArray[1];
+             for (int i = 0; i < strArray.length; i++) {
+                 if (i <= 1 && i != strArray.length-1)
+                 {
+                     newBirthDate += strArray[i] + ".";
+                 } else {
+                     newBirthDate += strArray[i];
+                 }
+             }
+             birthDate = newBirthDate;
+        }
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(String birthDate){
         this.birthDate = birthDate;
     }
 
