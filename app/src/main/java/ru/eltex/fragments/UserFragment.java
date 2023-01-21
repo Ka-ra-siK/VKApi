@@ -112,6 +112,7 @@ public class UserFragment extends Fragment {
             groupsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, groupsFragment).commit();
         });
+
         return view;
     }
 }
