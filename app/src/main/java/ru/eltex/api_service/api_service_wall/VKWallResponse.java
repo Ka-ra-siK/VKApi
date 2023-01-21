@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_wall;
+package ru.eltex.api_service.wall;
 
 public class VKWallResponse {
     VKWallResponseBody response;

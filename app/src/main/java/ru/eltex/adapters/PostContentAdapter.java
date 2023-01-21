@@ -17,9 +17,9 @@ import java.util.Map;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
-import ru.eltex.api_service.api_service_news.body.items.VKNewsAttachments;
-import ru.eltex.api_service.api_service_news.photo.VKNewsPhotoSizes;
-import ru.eltex.api_service.api_service_news.video.VKNewsVideoImage;
+import ru.eltex.api_service.news.body.items.VKNewsAttachments;
+import ru.eltex.api_service.news.photo.VKNewsPhotoSizes;
+import ru.eltex.api_service.news.video.VKNewsVideoImage;
 
 public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.ViewHolder> {
 

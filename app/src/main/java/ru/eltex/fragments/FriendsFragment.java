@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
+import ru.eltex.api_service.friends.VKFriendsResponse;
 import ru.eltex.instance.Friend;
 
 public class FriendsFragment extends Fragment {

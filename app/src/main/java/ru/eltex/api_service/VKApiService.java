@@ -4,11 +4,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import ru.eltex.api_service.api_service_friends.VKFriendsResponse;
-import ru.eltex.api_service.api_service_groups.VKGroupsResponse;
-import ru.eltex.api_service.api_service_news.VKNewsResponse;
-import ru.eltex.api_service.api_service_user.VKUserResponse;
-import ru.eltex.api_service.api_service_wall.VKWallResponse;
+import ru.eltex.api_service.friends.VKFriendsResponse;
+import ru.eltex.api_service.groups.VKGroupsResponse;
+import ru.eltex.api_service.news.VKNewsResponse;
+import ru.eltex.api_service.user.VKUserResponse;
+import ru.eltex.api_service.wall.VKWallResponse;
 
 public interface VKApiService{
 

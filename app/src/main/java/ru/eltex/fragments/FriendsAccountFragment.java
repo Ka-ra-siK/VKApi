@@ -23,7 +23,7 @@ import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_user.VKUserResponse;
+import ru.eltex.api_service.user.VKUserResponse;
 
 public class FriendsAccountFragment extends Fragment {
 

@@ -1,12 +1,12 @@
-package ru.eltex.api_service.api_service_news;
+package ru.eltex.api_service.news;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import ru.eltex.api_service.api_service_news.body.groups.VKNewsGroups;
-import ru.eltex.api_service.api_service_news.body.items.VKNewsItems;
-import ru.eltex.api_service.api_service_news.body.profiles.VKNewsProfiles;
+import ru.eltex.api_service.news.body.groups.VKNewsGroups;
+import ru.eltex.api_service.news.body.items.VKNewsItems;
+import ru.eltex.api_service.news.body.profiles.VKNewsProfiles;
 
 public class VKNewsResponseBody {
 

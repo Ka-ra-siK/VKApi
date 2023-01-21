@@ -20,7 +20,7 @@ import ru.eltex.R;
 import ru.eltex.adapters.NewsAdapter;
 import ru.eltex.adapters.NewsLinearLayoutManager;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_news.VKApiServiceNewsImplementation;
+import ru.eltex.api_service.news.VKApiServiceNewsImplementation;
 import ru.eltex.databinding.FragmentNewsBinding;
 
 public class NewsFragment extends Fragment {

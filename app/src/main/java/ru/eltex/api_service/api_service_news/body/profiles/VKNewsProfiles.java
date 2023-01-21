@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_news.body.profiles;
+package ru.eltex.api_service.news.body.profiles;
 
 import com.google.gson.annotations.SerializedName;
 

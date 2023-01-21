@@ -26,8 +26,8 @@ import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.adapters.GroupsAdapter;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_groups.VKGroup;
-import ru.eltex.api_service.api_service_groups.VKGroupsResponse;
+import ru.eltex.api_service.groups.VKGroup;
+import ru.eltex.api_service.groups.VKGroupsResponse;
 import ru.eltex.instance.Friend;
 
 /**

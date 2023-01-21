@@ -17,7 +17,7 @@ import java.util.List;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
-import ru.eltex.api_service.api_service_groups.VKGroup;
+import ru.eltex.api_service.groups.VKGroup;
 
 /**
  * Адаптер для отображения списка групп пользователя

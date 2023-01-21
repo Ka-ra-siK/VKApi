@@ -1,11 +1,11 @@
-package ru.eltex.api_service.api_service_wall.items;
+package ru.eltex.api_service.wall.items;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import ru.eltex.api_service.api_service_wall.items.attachments.VKWallItemsAttachments;
-import ru.eltex.api_service.api_service_wall.items.copy_history.VKWallItemsCopyHistory;
+import ru.eltex.api_service.wall.items.attachments.VKWallItemsAttachments;
+import ru.eltex.api_service.wall.items.copy_history.VKWallItemsCopyHistory;
 
 public class VKWallItems {
 

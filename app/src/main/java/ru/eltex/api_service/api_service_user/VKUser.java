@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_user;
+package ru.eltex.api_service.user;
 
 import com.google.gson.annotations.SerializedName;
 

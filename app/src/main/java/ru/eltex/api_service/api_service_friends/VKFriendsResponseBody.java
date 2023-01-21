@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_friends;
+package ru.eltex.api_service.friends;
 
 import java.util.List;
 

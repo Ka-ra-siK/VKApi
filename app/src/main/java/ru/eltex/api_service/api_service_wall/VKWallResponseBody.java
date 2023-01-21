@@ -1,8 +1,8 @@
-package ru.eltex.api_service.api_service_wall;
+package ru.eltex.api_service.wall;
 
 import java.util.List;
 
-import ru.eltex.api_service.api_service_wall.items.VKWallItems;
+import ru.eltex.api_service.wall.items.VKWallItems;
 
 public class VKWallResponseBody {
     String count;

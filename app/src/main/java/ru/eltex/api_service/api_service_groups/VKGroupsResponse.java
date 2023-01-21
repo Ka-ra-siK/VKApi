@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_groups;
+package ru.eltex.api_service.groups;
 
 
 public class VKGroupsResponse {

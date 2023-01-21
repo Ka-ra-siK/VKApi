@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_wall.items.attachments;
+package ru.eltex.api_service.wall.items.attachments;
 
 public class AttachmentsPhotoSize {
     Integer height;

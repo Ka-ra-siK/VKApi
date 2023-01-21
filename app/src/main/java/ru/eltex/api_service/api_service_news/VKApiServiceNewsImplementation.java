@@ -1,4 +1,4 @@
-package ru.eltex.api_service.api_service_news;
+package ru.eltex.api_service.news;
 
 
 import androidx.annotation.NonNull;
@@ -16,9 +16,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.api_service.api_service_news.body.groups.VKNewsGroups;
-import ru.eltex.api_service.api_service_news.body.items.VKNewsItems;
-import ru.eltex.api_service.api_service_news.body.profiles.VKNewsProfiles;
+import ru.eltex.api_service.news.body.groups.VKNewsGroups;
+import ru.eltex.api_service.news.body.items.VKNewsItems;
+import ru.eltex.api_service.news.body.profiles.VKNewsProfiles;
 import ru.eltex.instance.Post;
 import ru.eltex.instance.authors.Author;
 import ru.eltex.instance.authors.GroupAuthor;
