@@ -1,6 +1,7 @@
 package ru.eltex.api_service.news.body.items;
 
 import ru.eltex.api_service.news.doc.VKNewsDoc;
+import ru.eltex.api_service.news.link.VKNewsLink;
 import ru.eltex.api_service.news.photo.VKNewsPhoto;
 import ru.eltex.api_service.news.video.VKNewsVideo;
 
@@ -13,6 +14,7 @@ public class VKNewsAttachments {
     VKNewsPhoto photo;
     VKNewsVideo video;
     VKNewsDoc doc;
+    VKNewsLink link;
 
     public VKNewsAttachments() {
     }
@@ -47,5 +49,13 @@ public class VKNewsAttachments {
 
     public void setDoc(VKNewsDoc doc) {
         this.doc = doc;
+    }
+
+    public VKNewsLink getLink() {
+        return link;
+    }
+
+    public void setLink(VKNewsLink link) {
+        this.link = link;
     }
 }

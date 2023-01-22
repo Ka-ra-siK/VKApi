@@ -15,7 +15,6 @@ import ru.eltex.api_service.news.doc.VKNewsDocPhotoSizes;
  * 6 — видео;
  * 7 — электронные книги;
  * 8 — неизвестно.
- *
  */
 public class DocContent implements IContent {
     @Override
@@ -24,10 +23,10 @@ public class DocContent implements IContent {
         VKNewsDoc newsDoc = vkNewsAttachments.getDoc();
         if (newsDoc.getType() == 3) {
             VKNewsDocPhoto newsPhoto = newsDoc.getPreview().getPhoto();
-            for(VKNewsDocPhotoSizes sizes : newsPhoto.getSizes()) {
+            for (VKNewsDocPhotoSizes sizes : newsPhoto.getSizes()) {
                 if (sizes.getType().equals("x")) {
                     url = sizes.getSrc();
-                } else if (url.equals("") && sizes.equals("o")){
+                } else if (url.equals("") && sizes.equals("o")) {
                     url = sizes.getSrc();
                 }
             }

@@ -81,7 +81,11 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     public void onBindViewHolder(@NonNull PostContentAdapter.ViewHolder holder, int position) {
 
         VKNewsAttachments vkNewsAttachments = content.get(position);
-        String url = getContentStore.get(vkNewsAttachments.getType()).getContent(vkNewsAttachments);
+        IContent contentItemStore = getContentStore.get(vkNewsAttachments.getType());
+        String url = "";
+        if (contentItemStore != null) {
+            url = contentItemStore.getContent(vkNewsAttachments);
+        }
 
         new TaskRunner().executeAsync(new ImageLoadTask(url), (image) -> {
             images.put(position, image);

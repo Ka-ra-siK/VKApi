@@ -8,7 +8,8 @@ import ru.eltex.api_service.news.video.VKNewsVideoImage;
  */
 public class VideoContent implements IContent {
 
-    public VideoContent() {}
+    public VideoContent() {
+    }
 
     @Override
     public String getContent(VKNewsAttachments vkNewsAttachments) {

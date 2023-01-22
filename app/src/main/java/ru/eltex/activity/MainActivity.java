@@ -14,7 +14,7 @@ import ru.eltex.api_service.WebClient;
 public class MainActivity extends AppCompatActivity {
 
     //ID of the VK application
-    private static String APP_ID = "51511870";
+    private static String APP_ID = "51509978";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
