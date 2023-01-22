@@ -24,6 +24,8 @@ public class VKNewsItems {
     VKNewsLikes likes;
     VKNewsReposts reposts;
     List<VKNewsAttachments> attachments;
+    @SerializedName("marked_as_ads")
+    Integer markedAsAds;
 
     public VKNewsItems() {
     }
@@ -114,5 +116,13 @@ public class VKNewsItems {
 
     public void setAttachments(List<VKNewsAttachments> attachments) {
         this.attachments = attachments;
+    }
+
+    public Integer getMarkedAsAds() {
+        return markedAsAds;
+    }
+
+    public void setMarkedAsAds(Integer markedAsAds) {
+        this.markedAsAds = markedAsAds;
     }
 }

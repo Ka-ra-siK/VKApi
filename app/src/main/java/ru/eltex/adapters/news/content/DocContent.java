@@ -1,9 +1,11 @@
 package ru.eltex.adapters.news.content;
 
+import android.net.Uri;
+import android.view.ViewGroup;
+
+import ru.eltex.adapters.news.PostContentAdapter;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 import ru.eltex.api_service.news.doc.VKNewsDoc;
-import ru.eltex.api_service.news.doc.VKNewsDocPhoto;
-import ru.eltex.api_service.news.doc.VKNewsDocPhotoSizes;
 
 /**
  * Класс реализующий интерфейс IContent для получения контента отмеченого как doc
@@ -18,18 +20,14 @@ import ru.eltex.api_service.news.doc.VKNewsDocPhotoSizes;
  */
 public class DocContent implements IContent {
     @Override
-    public String getContent(VKNewsAttachments vkNewsAttachments) {
+    public String getContent(VKNewsAttachments vkNewsAttachments, PostContentAdapter.ViewHolder holder) {
         String url = "";
         VKNewsDoc newsDoc = vkNewsAttachments.getDoc();
         if (newsDoc.getType() == 3) {
-            VKNewsDocPhoto newsPhoto = newsDoc.getPreview().getPhoto();
-            for (VKNewsDocPhotoSizes sizes : newsPhoto.getSizes()) {
-                if (sizes.getType().equals("x")) {
-                    url = sizes.getSrc();
-                } else if (url.equals("") && sizes.equals("o")) {
-                    url = sizes.getSrc();
-                }
-            }
+            holder.getContentGif().setVideoURI(Uri.parse(newsDoc.getPreview().getVideo().getSrc()));
+            holder.getContentGif().setLayoutParams(new ViewGroup.LayoutParams(newsDoc.getPreview().getVideo().getWidth(),
+                    newsDoc.getPreview().getVideo().getHeight()));
+            holder.getContentGif().start();
         }
         return url;
     }

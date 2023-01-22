@@ -1,5 +1,6 @@
 package ru.eltex.adapters.news.content;
 
+import ru.eltex.adapters.news.PostContentAdapter;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 
 /**
@@ -8,7 +9,7 @@ import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 public class AudioContent implements IContent {
 
     @Override
-    public String getContent(VKNewsAttachments vkNewsAttachments) {
-        return null;
+    public String getContent(VKNewsAttachments vkNewsAttachments, PostContentAdapter.ViewHolder holder) {
+        return "";
     }
 }

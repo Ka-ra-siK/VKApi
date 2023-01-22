@@ -22,6 +22,7 @@ public class VKNewsVideo {
     @SerializedName("track_code")
     String trackCode;
     String type;
+    String player;
 
     public VKNewsVideo() {
     }
@@ -104,5 +105,9 @@ public class VKNewsVideo {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPlayer() {
+        return player;
     }
 }

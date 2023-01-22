@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
+import ru.eltex.adapters.news.content.IContent;
 import ru.eltex.instance.Post;
 
 /**
@@ -31,6 +33,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
      * Контекст приложения
      */
     private final Context context;
+    /**
+     * Хранилеще приемников контента
+     */
+    private final Map<String, IContent> storageContentReceivers;
 
     /**
      * Класс наследуемый от RecyclerView.ViewHolder и дополненый необходимыми полями для отображения записей.
@@ -108,9 +114,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
     }
 
-    public NewsAdapter(List<Post> vkNewsPosts, Context context) {
+    public NewsAdapter(List<Post> vkNewsPosts, Context context, Map<String, IContent> storageContentReceivers) {
         this.vkNewsPosts = vkNewsPosts;
         this.context = context;
+        this.storageContentReceivers = storageContentReceivers;
     }
 
 
@@ -140,7 +147,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.getTextNewsView().setText(curPost.getTextPost());
 
         //TODO Сделать асимметричный вывод изображений.
-        holder.getContentView().setAdapter(new PostContentAdapter(curPost.getContent()));
+        holder.getContentView().setAdapter(new PostContentAdapter(curPost.getContent(), storageContentReceivers));
         holder.getContentView().setLayoutManager(new LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL, false));
 

@@ -13,23 +13,27 @@ import android.view.ViewGroup;
 
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.news.NewsAdapter;
 import ru.eltex.adapters.news.NewsLinearLayoutManager;
+import ru.eltex.adapters.news.content.AudioContent;
+import ru.eltex.adapters.news.content.DocContent;
+import ru.eltex.adapters.news.content.IContent;
+import ru.eltex.adapters.news.content.LinkContent;
+import ru.eltex.adapters.news.content.PhotoContent;
+import ru.eltex.adapters.news.content.VideoContent;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.news.VKApiServiceNewsImplementation;
 import ru.eltex.databinding.FragmentNewsBinding;
 
 public class NewsFragment extends Fragment {
 
-    private String token;
-    private String userId;
     private final Context context;
-    private FragmentNewsBinding binding;
-    private VKApiServiceNewsImplementation vkApiServiceNewsImp;
 
     public NewsFragment(Context context) {
         this.context = context;
@@ -39,17 +43,25 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         String typeNews = "get";
-        if ( getArguments() != null) {
-            typeNews =  getArguments().getString("typeNews");
+        if (getArguments() != null) {
+            typeNews = getArguments().getString("typeNews");
         }
+
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
 
-        binding = FragmentNewsBinding.inflate(getLayoutInflater());
+        ru.eltex.databinding.FragmentNewsBinding binding = FragmentNewsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-        token = sharedPreferences.getString("token", "myToken");
-        userId = sharedPreferences.getString("user_id", "myUserId");
+        String token = sharedPreferences.getString("token", "myToken");
+        String userId = sharedPreferences.getString("user_id", "myUserId");
+
+        Map<String, IContent> storageContentReceivers = new HashMap<>();
+        storageContentReceivers.put("photo", new PhotoContent());
+        storageContentReceivers.put("video", new VideoContent(token));
+        storageContentReceivers.put("link", new LinkContent());
+        storageContentReceivers.put("doc", new DocContent());
+        storageContentReceivers.put("audio", new AudioContent());
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -60,12 +72,12 @@ public class NewsFragment extends Fragment {
 
         VKApiService vkApiServiceNews = retrofit.create(VKApiService.class);
         RecyclerView recyclerView = binding.recyclerView;
-        vkApiServiceNewsImp = new VKApiServiceNewsImplementation(typeNews, token, userId,
+        VKApiServiceNewsImplementation vkApiServiceNewsImp = new VKApiServiceNewsImplementation(typeNews, token, userId,
                 vkApiServiceNews,
                 recyclerView, formatter);
 
         recyclerView.setLayoutManager(new NewsLinearLayoutManager(context, vkApiServiceNewsImp));
-        recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), context));
+        recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), context, storageContentReceivers));
 
         binding.listNews.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();

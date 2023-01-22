@@ -1,5 +1,6 @@
 package ru.eltex.adapters.news.content;
 
+import ru.eltex.adapters.news.PostContentAdapter;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 import ru.eltex.api_service.news.photo.VKNewsPhotoSizes;
 
@@ -10,7 +11,7 @@ public class PhotoContent implements IContent {
 
 
     @Override
-    public String getContent(VKNewsAttachments vkNewsAttachments) {
+    public String getContent(VKNewsAttachments vkNewsAttachments, PostContentAdapter.ViewHolder holder) {
         String url = "";
         for (VKNewsPhotoSizes photoSizes : vkNewsAttachments.getPhoto().getSizes()) {
             if (photoSizes.getType().equals("z")) {

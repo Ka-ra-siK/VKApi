@@ -10,6 +10,7 @@ import ru.eltex.api_service.news.VKNewsResponse;
 import ru.eltex.api_service.user.VKUserResponse;
 import ru.eltex.api_service.user.photo.VKUserPhotoResponse;
 import ru.eltex.api_service.user.photo.VKUserPhotoResponseBody;
+import ru.eltex.api_service.video.VKVideoResponse;
 import ru.eltex.api_service.wall.VKWallResponse;
 
 public interface VKApiService {
@@ -51,5 +52,9 @@ public interface VKApiService {
     Call<VKUserPhotoResponse> getUserPhoto(@Query("owner_id") String id, @Query("access_token") String accessToken,
                                            @Query("album_id") String albumId, @Query("rev") String isRev,
                                            @Query("v") Double version);
+
+    @GET("video.get?")
+    Call<VKVideoResponse> getVideo(@Query("owner_id") Integer ownerId, @Query("access_token") String accessToken,
+                                   @Query("videos") String videos, @Query("v") Double version);
 
 }
