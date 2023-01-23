@@ -166,14 +166,14 @@ public class VKApiServiceNewsImplementation {
 
         for (VKNewsItems vkNewsItems : vkNewsItemsList) {
             if (vkNewsItems.getLikes() != null) {
-                if (vkNewsItems.getMarkedAsAds() == 0) {
-                    Date date = new java.util.Date(vkNewsItems.getDate() * 1000L);
+//                if (vkNewsItems.getMarkedAsAds() == 0) {
+                Date date = new java.util.Date(vkNewsItems.getDate() * 1000L);
 
-                    postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getSourceID()),
-                            formatter.format(date.getTime()), vkNewsItems.getTextNewsItem(), vkNewsItems.getAttachments(),
-                            vkNewsItems.getLikes().getCount(), vkNewsItems.getReposts().getCount()
-                    ));
-                }
+                postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getSourceID()),
+                        formatter.format(date.getTime()), vkNewsItems.getTextNewsItem(), vkNewsItems.getAttachments(),
+                        vkNewsItems.getLikes().getCount(), vkNewsItems.getReposts().getCount()
+                ));
+//                }
             }
         }
         Objects.requireNonNull(recyclerViewNews.getAdapter())

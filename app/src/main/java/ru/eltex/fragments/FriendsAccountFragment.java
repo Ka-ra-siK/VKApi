@@ -41,7 +41,7 @@ public class FriendsAccountFragment extends Fragment {
     private TextView birthDate;
     private TextView status;
     private TextView homeTown;
-    private TextView city;
+    private TextView isPrivate;
     private ImageView userImg;
     private ImageView groupsImg;
     private ImageView friendsImg;
@@ -77,11 +77,12 @@ public class FriendsAccountFragment extends Fragment {
         status = (TextView) view.findViewById(R.id.status_friend);
         homeTown = (TextView) view.findViewById(R.id.home_town_friend);
 //        city = (TextView) view.findViewById(R.id.city_friend);
+        isPrivate = (TextView) view.findViewById(R.id.if_account_is_closed);
         userImg = (ImageView) view.findViewById(R.id.user_friend_img);
         groupsImg = (ImageView) view.findViewById(R.id.groups_img);
         friendsImg = (ImageView) view.findViewById(R.id.friends_img);
         isOnlineImage = (ImageView) view.findViewById(R.id.is_online_friend);
-        sliderViewPager = (ViewPager)  view.findViewById(R.id.photo_view_pager);
+        sliderViewPager = (ViewPager) view.findViewById(R.id.photo_view_pager);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,10 +111,10 @@ public class FriendsAccountFragment extends Fragment {
                         userImg.setImageDrawable(roundedBitmapDrawable);
                     });
 
-                    if (Objects.equals(element.getOnline(), "1")){
-                        if (element.getOnlineMobile() != null){
+                    if (Objects.equals(element.getOnline(), "1")) {
+                        if (element.getOnlineMobile() != null) {
                             isOnlineImage.setImageResource(R.drawable.phone);
-                        }else {
+                        } else {
                             isOnlineImage.setImageResource(R.drawable.is_online);
                         }
                     }
@@ -133,19 +134,29 @@ public class FriendsAccountFragment extends Fragment {
         //Просмотр фотографий пользователя
         VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
         vkApiServiceUserPhoto.getUserPhoto(friendId, token,
-                "profile", "1", 1,Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
+                "profile", "1", 1, Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
             @Override
             public void onResponse(Call<VKUserPhotoResponse> call, Response<VKUserPhotoResponse> response) {
                 photoURLs = new ArrayList<>();
                 photoLikes = new ArrayList<>();
                 photoReposts = new ArrayList<>();
                 assert response.body() != null;
-                Log.d("PHOTO", String.valueOf(response.body().getResponse().getCount()));
-                response.body().getResponse().getPhotoResponseItems().forEach(elements -> {
-                    photoURLs.add(elements.getPhotoResponseItemsSizesList().get(elements.getSizes() - 1).getUrl());
-                    photoLikes.add(String.valueOf(elements.getLikes().getCount()));
-                    photoReposts.add(String.valueOf(elements.getReposts().getCount()));
-                });
+//                Log.d("PHOTO", String.valueOf(response.body().getResponse().getCount()));
+                try {
+                    response.body().getResponse().getPhotoResponseItems().forEach(elements -> {
+                        photoURLs.add(elements.getPhotoResponseItemsSizesList().get(elements.getSizes() - 1).getUrl());
+                        try {
+                            photoLikes.add(String.valueOf(elements.getLikes().getCount()));
+                            photoReposts.add(String.valueOf(elements.getReposts().getCount()));
+                        } catch (Exception e) {
+
+                        }
+
+                    });
+                } catch (NullPointerException e){
+                    Log.e("NullPointerException", String.valueOf(e));
+                }
+
                 sliderAdapter = new SliderAdapter(getContext(), photoURLs);
                 sliderAdapter.setOnItemClickListener(new View.OnClickListener() {
                     @Override
@@ -153,8 +164,13 @@ public class FriendsAccountFragment extends Fragment {
                         int position = (int) v.getTag();
                         Bundle bundle = new Bundle();
                         bundle.putString("photo_id", photoURLs.get(position));
-                        bundle.putString("likes", photoLikes.get(position));
-                        bundle.putString("reposts", photoReposts.get(position));
+                        try {
+                            bundle.putString("likes", photoLikes.get(position));
+                            bundle.putString("reposts", photoReposts.get(position));
+                        } catch (Exception e) {
+
+                        }
+
                         PhotoViewFragment photoViewFragment = new PhotoViewFragment();
                         photoViewFragment.setArguments(bundle);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, photoViewFragment)
@@ -185,7 +201,7 @@ public class FriendsAccountFragment extends Fragment {
                     .commit();
         });
 
-        friendsImg.setOnClickListener(view2 ->{
+        friendsImg.setOnClickListener(view2 -> {
             Bundle bundleGroups = new Bundle();
             bundleGroups.putString("user_id", friendId);
             FriendsFragment friendsFragment = new FriendsFragment(this.getContext());
@@ -197,7 +213,6 @@ public class FriendsAccountFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
 
 
         return view;

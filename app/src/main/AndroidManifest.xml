@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Eltex_VKApi"
         tools:targetApi="31">
         <activity
+            android:name=".activity.RegistrationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.FragmentViewActivity"
             android:exported="false">
             <meta-data

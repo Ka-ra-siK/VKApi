@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
 
-    <WebView
-        android:id="@+id/web_link"
+<!--    <WebView-->
+<!--        android:id="@+id/web_link"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--    </WebView>-->
+    <FrameLayout
+        android:id="@+id/fragment_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </WebView>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_view"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_view"
+        app:layout_constraintStart_toStartOf="@+id/fragment_view"
+        app:menu="@menu/bottom_nav_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</LinearLayout>

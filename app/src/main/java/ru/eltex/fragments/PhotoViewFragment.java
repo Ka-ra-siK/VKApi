@@ -52,8 +52,13 @@ public class PhotoViewFragment extends Fragment {
             userImgView.setImageBitmap(image);
         });
 
-        likesNumberView.setText(bundle.getString("likes"));
-        repostsNumberView.setText(bundle.getString("reposts"));
+        try {
+            likesNumberView.setText(bundle.getString("likes"));
+            repostsNumberView.setText(bundle.getString("reposts"));
+        } catch (Exception e) {
+
+        }
+
 
         //Возврат назад
         backImage.setOnClickListener(new View.OnClickListener() {
