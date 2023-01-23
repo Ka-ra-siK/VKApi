@@ -30,6 +30,18 @@ public class VKUserPhotoResponseItems {
     @SerializedName("has_tags")
     @Expose
     Boolean hasTags;
+    @SerializedName("likes")
+    @Expose
+    PhotoItemsLikes likes;
+    @SerializedName("comments")
+    @Expose
+    PhotoItemsComments comments;
+    @SerializedName("reposts")
+    @Expose
+    PhotoItemsReposts reposts;
+    @SerializedName("tags")
+    @Expose
+    PhotoItemsTags tags;
     @SerializedName("sizes")
     @Expose
     List<PhotoResponseItemsSizes> photoResponseItemsSizesList;
@@ -98,11 +110,47 @@ public class VKUserPhotoResponseItems {
         this.hasTags = hasTags;
     }
 
+    public PhotoItemsLikes getLikes() {
+        return likes;
+    }
+
+    public void setLikes(PhotoItemsLikes likes) {
+        this.likes = likes;
+    }
+
+    public PhotoItemsComments getComments() {
+        return comments;
+    }
+
+    public void setComments(PhotoItemsComments comments) {
+        this.comments = comments;
+    }
+
+    public PhotoItemsReposts getReposts() {
+        return reposts;
+    }
+
+    public void setReposts(PhotoItemsReposts reposts) {
+        this.reposts = reposts;
+    }
+
+    public PhotoItemsTags getTags() {
+        return tags;
+    }
+
+    public void setTags(PhotoItemsTags tags) {
+        this.tags = tags;
+    }
+
     public List<PhotoResponseItemsSizes> getPhotoResponseItemsSizesList() {
         return photoResponseItemsSizesList;
     }
 
     public void setPhotoResponseItemsSizesList(List<PhotoResponseItemsSizes> photoResponseItemsSizesList) {
         this.photoResponseItemsSizesList = photoResponseItemsSizesList;
+    }
+
+    public int getSizes() {
+        return photoResponseItemsSizesList.size();
     }
 }

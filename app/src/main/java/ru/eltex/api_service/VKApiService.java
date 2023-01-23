@@ -51,7 +51,7 @@ public interface VKApiService {
     @GET("photos.get?")
     Call<VKUserPhotoResponse> getUserPhoto(@Query("owner_id") String id, @Query("access_token") String accessToken,
                                            @Query("album_id") String albumId, @Query("rev") String isRev,
-                                           @Query("v") Double version);
+                                           @Query("extended") Integer extended, @Query("v") Double version);
 
     @GET("video.get?")
     Call<VKVideoResponse> getVideo(@Query("owner_id") Integer ownerId, @Query("access_token") String accessToken,

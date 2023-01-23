@@ -48,6 +48,8 @@ public class FriendsAccountFragment extends Fragment {
     private ImageView isOnlineImage;
 
     private ArrayList<String> photoURLs;
+    private ArrayList<String> photoLikes;
+    private ArrayList<String> photoReposts;
     private SliderAdapter sliderAdapter;
     // creating object of ViewPager
     ViewPager sliderViewPager;
@@ -128,18 +130,38 @@ public class FriendsAccountFragment extends Fragment {
             }
         });
 
+        //Просмотр фотографий пользователя
         VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
         vkApiServiceUserPhoto.getUserPhoto(friendId, token,
-                "profile", "1", Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
+                "profile", "1", 1,Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
             @Override
             public void onResponse(Call<VKUserPhotoResponse> call, Response<VKUserPhotoResponse> response) {
                 photoURLs = new ArrayList<>();
+                photoLikes = new ArrayList<>();
+                photoReposts = new ArrayList<>();
                 assert response.body() != null;
                 Log.d("PHOTO", String.valueOf(response.body().getResponse().getCount()));
                 response.body().getResponse().getPhotoResponseItems().forEach(elements -> {
-                    photoURLs.add(elements.getPhotoResponseItemsSizesList().get(1).getUrl());
+                    photoURLs.add(elements.getPhotoResponseItemsSizesList().get(elements.getSizes() - 1).getUrl());
+                    photoLikes.add(String.valueOf(elements.getLikes().getCount()));
+                    photoReposts.add(String.valueOf(elements.getReposts().getCount()));
                 });
                 sliderAdapter = new SliderAdapter(getContext(), photoURLs);
+                sliderAdapter.setOnItemClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = (int) v.getTag();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("photo_id", photoURLs.get(position));
+                        bundle.putString("likes", photoLikes.get(position));
+                        bundle.putString("reposts", photoReposts.get(position));
+                        PhotoViewFragment photoViewFragment = new PhotoViewFragment();
+                        photoViewFragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, photoViewFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
                 sliderViewPager.setAdapter(sliderAdapter);
             }
 

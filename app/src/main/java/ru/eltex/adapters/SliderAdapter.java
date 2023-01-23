@@ -24,11 +24,16 @@ public class SliderAdapter extends PagerAdapter {
     Context context;
     // Layout Inflater
     LayoutInflater mLayoutInflater;
+    private View.OnClickListener onClickListener;
 
     public SliderAdapter(Context context, ArrayList<String> images) {
         this.context = context;
         this.images = images;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setOnItemClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -68,6 +73,13 @@ public class SliderAdapter extends PagerAdapter {
         new TaskRunner().executeAsync(new ImageLoadTask(images.get(index3)), (image) -> {
             imageViewThird.setImageBitmap(image);
         });
+
+        imageViewFirst.setTag(index1);
+        imageViewSecond.setTag(index2);
+        imageViewThird.setTag(index3);
+        imageViewFirst.setOnClickListener(onClickListener);
+        imageViewSecond.setOnClickListener(onClickListener);
+        imageViewThird.setOnClickListener(onClickListener);
 
         if(imagesUsed + 1 >= imagesCount){
             imageViewSecond.setVisibility(View.INVISIBLE);
