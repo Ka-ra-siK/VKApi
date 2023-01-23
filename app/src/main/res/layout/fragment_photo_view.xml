@@ -31,7 +31,7 @@
             android:id="@+id/like_photo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/likes_empty"/>
+            android:src="@mipmap/likes_icon_foreground"/>
 
         <TextView
             android:id="@+id/likes_photo_count"
@@ -48,7 +48,7 @@
             android:layout_height="30dp"
             android:layout_toEndOf="@id/likes_count"
             android:layout_marginStart="10dp"
-            android:src="@drawable/reposts_empty"/>
+            android:src="@mipmap/reposts_icon_foreground"/>
 
         <TextView
             android:id="@+id/reposts_photo_count"
