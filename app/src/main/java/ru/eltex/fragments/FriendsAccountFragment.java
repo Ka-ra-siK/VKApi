@@ -17,7 +17,9 @@ import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -28,8 +30,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.ImageLoadTask;
 import ru.eltex.R;
 import ru.eltex.TaskRunner;
+import ru.eltex.adapters.SliderAdapter;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.user.VKUserResponse;
+import ru.eltex.api_service.user.photo.VKUserPhotoResponse;
 
 public class FriendsAccountFragment extends Fragment {
 
@@ -42,6 +46,11 @@ public class FriendsAccountFragment extends Fragment {
     private ImageView groupsImg;
     private ImageView friendsImg;
     private ImageView isOnlineImage;
+
+    private ArrayList<String> photoURLs;
+    private SliderAdapter sliderAdapter;
+    // creating object of ViewPager
+    ViewPager sliderViewPager;
 
     private String friendId;
     private String token;
@@ -70,6 +79,7 @@ public class FriendsAccountFragment extends Fragment {
         groupsImg = (ImageView) view.findViewById(R.id.groups_img);
         friendsImg = (ImageView) view.findViewById(R.id.friends_img);
         isOnlineImage = (ImageView) view.findViewById(R.id.is_online_friend);
+        sliderViewPager = (ViewPager)  view.findViewById(R.id.photo_view_pager);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -117,6 +127,29 @@ public class FriendsAccountFragment extends Fragment {
 
             }
         });
+
+        VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
+        vkApiServiceUserPhoto.getUserPhoto(friendId, token,
+                "profile", "1", Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
+            @Override
+            public void onResponse(Call<VKUserPhotoResponse> call, Response<VKUserPhotoResponse> response) {
+                photoURLs = new ArrayList<>();
+                assert response.body() != null;
+                Log.d("PHOTO", String.valueOf(response.body().getResponse().getCount()));
+                response.body().getResponse().getPhotoResponseItems().forEach(elements -> {
+                    photoURLs.add(elements.getPhotoResponseItemsSizesList().get(1).getUrl());
+                });
+                sliderAdapter = new SliderAdapter(getContext(), photoURLs);
+                sliderViewPager.setAdapter(sliderAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<VKUserPhotoResponse> call, Throwable t) {
+                Log.e("PHOTO", String.valueOf(t));
+
+            }
+        });
+
         groupsImg.setOnClickListener(view1 -> {
             Bundle bundleGroups = new Bundle();
             bundleGroups.putString("user_id", friendId);

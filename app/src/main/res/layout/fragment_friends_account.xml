@@ -177,4 +177,12 @@
 
     <!--    </LinearLayout>-->
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/photo_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="18dp" />
+
 </LinearLayout>
