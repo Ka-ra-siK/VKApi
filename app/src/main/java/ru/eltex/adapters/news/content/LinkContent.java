@@ -1,5 +1,6 @@
 package ru.eltex.adapters.news.content;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,13 @@ import ru.eltex.fragments.LinkFragment;
  * для перехода по ссылкам
  */
 public class LinkContent implements IContent {
+
+    private final Context context;
+
+    public LinkContent(Context context) {
+        this.context = context;
+    }
+
     @Override
     public String getContent(VKNewsAttachments vkNewsAttachments, PostContentAdapter.ViewHolder holder) {
         VKNewsLink newsLink = vkNewsAttachments.getLink();
@@ -38,7 +46,7 @@ public class LinkContent implements IContent {
             LinkFragment linkFragment = new LinkFragment();
             linkFragment.setArguments(bundleLink);
 
-            ((AppCompatActivity) holder.getContentView().getContext())
+            ((AppCompatActivity) context)
                     .getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_view, linkFragment)

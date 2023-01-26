@@ -40,7 +40,11 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
         VIDEO(2),
         GIF(3),
         LINK(4),
-        AUDIO(5);
+        AUDIO(5),
+        TEXT(6),
+        ARCHIVE(7),
+        EBOOK(8),
+        UNKNOWN(9);
 
         private final int type;
 
@@ -123,18 +127,47 @@ public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.
     @Override
     public int getItemViewType(int position) {
         int type = 0;
-        if (Objects.equals(content.get(position).getType(), "photo")) {
-            type = ItemType.PHOTO.type;
-        } else if (Objects.equals(content.get(position).getType(), "video")) {
-            type = ItemType.VIDEO.type;
-        } else if (Objects.equals(content.get(position).getType(), "doc")) {
-            if (content.get(position).getDoc().getType() == 3) {
-                type = ItemType.GIF.type;
-            }
-        } else if (Objects.equals(content.get(position).getType(), "link")) {
-            type = ItemType.LINK.type;
-        } else if (Objects.equals(content.get(position).getType(), "audio")) {
-            type = ItemType.AUDIO.type;
+        switch (content.get(position).getType()) {
+            case "photo":
+                type = ItemType.PHOTO.type;
+                break;
+            case "video":
+                type = ItemType.VIDEO.type;
+                break;
+            case "doc":
+                switch (content.get(position).getDoc().getType()) {
+                    case 1:
+                        type = ItemType.TEXT.type;
+                        break;
+                    case 2:
+                        type = ItemType.ARCHIVE.type;
+                        break;
+                    case 3:
+                        type = ItemType.GIF.type;
+                        break;
+                    case 4:
+                        type = ItemType.PHOTO.type;
+                        break;
+                    case 5:
+                        type = ItemType.AUDIO.type;
+                        break;
+                    case 6:
+                        type = ItemType.VIDEO.type;
+                        break;
+                    case 7:
+                        type = ItemType.EBOOK.type;
+                        break;
+                    case 8:
+                        type = ItemType.UNKNOWN.type;
+                        break;
+                }
+                break;
+            case "link":
+                type = ItemType.LINK.type;
+                break;
+            case "audio":
+                type = ItemType.AUDIO.type;
+                break;
         }
         return type;
     }

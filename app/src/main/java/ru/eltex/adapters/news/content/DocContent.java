@@ -24,9 +24,13 @@ public class DocContent implements IContent {
         String url = "";
         VKNewsDoc newsDoc = vkNewsAttachments.getDoc();
         if (newsDoc.getType() == 3) {
-            holder.getContentGif().setVideoURI(Uri.parse(newsDoc.getPreview().getVideo().getSrc()));
-            holder.getContentGif().setLayoutParams(new ViewGroup.LayoutParams(newsDoc.getPreview().getVideo().getWidth(),
-                    newsDoc.getPreview().getVideo().getHeight()));
+            if (newsDoc.getPreview().getVideo() != null) {
+                holder.getContentGif().setVideoURI(Uri.parse(newsDoc.getPreview().getVideo().getSrc()));
+                holder.getContentGif().setLayoutParams(new ViewGroup.LayoutParams(newsDoc.getPreview().getVideo().getWidth(),
+                        newsDoc.getPreview().getVideo().getHeight()));
+            } else {
+                holder.getContentGif().setVideoURI(Uri.parse(newsDoc.getUrl()));
+            }
             holder.getContentGif().start();
         }
         return url;

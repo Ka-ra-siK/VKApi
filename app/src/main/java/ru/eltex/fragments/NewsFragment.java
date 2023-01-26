@@ -2,19 +2,25 @@ package ru.eltex.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Movie;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +40,7 @@ import ru.eltex.databinding.FragmentNewsBinding;
 public class NewsFragment extends Fragment {
 
     private final Context context;
+    private FragmentNewsBinding binding;
 
     public NewsFragment(Context context) {
         this.context = context;
@@ -50,7 +57,7 @@ public class NewsFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
 
-        ru.eltex.databinding.FragmentNewsBinding binding = FragmentNewsBinding.inflate(getLayoutInflater());
+        binding = FragmentNewsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
         String token = sharedPreferences.getString("token", "myToken");
@@ -59,7 +66,7 @@ public class NewsFragment extends Fragment {
         Map<String, IContent> storageContentReceivers = new HashMap<>();
         storageContentReceivers.put("photo", new PhotoContent());
         storageContentReceivers.put("video", new VideoContent(token));
-        storageContentReceivers.put("link", new LinkContent());
+        storageContentReceivers.put("link", new LinkContent(getContext()));
         storageContentReceivers.put("doc", new DocContent());
         storageContentReceivers.put("audio", new AudioContent());
 
@@ -101,4 +108,19 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable("KeyForLayoutManagerState");
+            Objects.requireNonNull(binding.recyclerView.getLayoutManager()).onRestoreInstanceState(savedRecyclerLayoutState);
+        }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("KeyForLayoutManagerState", Objects.requireNonNull(binding.recyclerView.getLayoutManager()).onSaveInstanceState());
+    }
 }

@@ -11,6 +11,7 @@ import ru.eltex.adapters.news.PostContentAdapter;
 import ru.eltex.api_service.VKApiService;
 import ru.eltex.api_service.WebClient;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
+import ru.eltex.api_service.news.errors.VKError;
 import ru.eltex.api_service.news.video.VKNewsVideo;
 import ru.eltex.api_service.video.VKVideoResponse;
 
@@ -38,14 +39,20 @@ public class VideoContent implements IContent {
         VKApiService vkApiServiceVideo = retrofit.create(VKApiService.class);
 
         vkApiServiceVideo.getVideo(newsVideo.getOwnerID(), token,
-                newsVideo.getOwnerID() + "_" + newsVideo.getId(), 5.131).enqueue(new Callback<VKVideoResponse>() {
+                -newsVideo.getOwnerID() + "_" + newsVideo.getId(), 5.131).enqueue(new Callback<VKVideoResponse>() {
             @Override
             public void onResponse(Call<VKVideoResponse> call, Response<VKVideoResponse> response) {
                 assert response.body() != null;
-                VKNewsVideo video = response.body().getResponse().getItems().get(0);
-                holder.getVideoView().getSettings().setJavaScriptEnabled(true);
-                holder.getVideoView().setWebViewClient(new WebClient(holder.getVideoView().getContext()));
-                holder.getVideoView().loadUrl(video.getPlayer());
+                try {
+                    VKNewsVideo video = response.body().getResponse().getItems().get(0);
+                    holder.getVideoView().getSettings().setJavaScriptEnabled(true);
+                    holder.getVideoView().setWebViewClient(new WebClient(holder.getVideoView().getContext()));
+                    holder.getVideoView().loadUrl(video.getPlayer());
+                } catch (NullPointerException e){
+                    VKError error = response.body().getError();
+                    Log.d("GET_VIDEO","Error code: " + error.getErrorCode());
+                    Log.e("GET_VIDEO", "Error msg: " + error.getErrorMsg());
+                }
             }
 
             @Override
