@@ -42,6 +42,8 @@ public class NewsFragment extends Fragment {
     private final Context context;
     private FragmentNewsBinding binding;
 
+    private static final Map<String, Parcelable> save = new HashMap<>();
+
     public NewsFragment(Context context) {
         this.context = context;
     }
@@ -49,7 +51,7 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String typeNews = "get";
+        String typeNews = "news";
         if (getArguments() != null) {
             typeNews = getArguments().getString("typeNews");
         }
@@ -88,7 +90,6 @@ public class NewsFragment extends Fragment {
 
         binding.listNews.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
-            bundle.putString("typeNews", "get");
             NewsFragment newsFragment = new NewsFragment(context);
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
@@ -96,7 +97,6 @@ public class NewsFragment extends Fragment {
 
         binding.listRecommended.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
-            bundle.putString("typeNews", "getRecommended");
             NewsFragment newsFragment = new NewsFragment(context);
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
@@ -108,19 +108,4 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable("KeyForLayoutManagerState");
-            Objects.requireNonNull(binding.recyclerView.getLayoutManager()).onRestoreInstanceState(savedRecyclerLayoutState);
-        }
-    }
-
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable("KeyForLayoutManagerState", Objects.requireNonNull(binding.recyclerView.getLayoutManager()).onSaveInstanceState());
-    }
 }

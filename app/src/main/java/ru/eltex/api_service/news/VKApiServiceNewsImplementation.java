@@ -73,12 +73,17 @@ public class VKApiServiceNewsImplementation {
      */
     boolean update;
 
+    private Map<String, String> typesNews;
+
     public VKApiServiceNewsImplementation(String typeNews, String token, String userID, VKApiService vkApiServiceNews,
                                           RecyclerView recyclerView, SimpleDateFormat formatter) {
 
         this.postList = new LinkedList<>();
         this.startFrom = "";
         this.authorsMap = new HashMap<>();
+        this.typesNews = new HashMap<>();
+        this.typesNews.put("news", "get");
+        this.typesNews.put("recommended", "getRecommended");
         this.typeNews = typeNews;
         this.token = token;
         this.userId = userID;
@@ -112,12 +117,16 @@ public class VKApiServiceNewsImplementation {
      */
     public void getNewsResponse() {
         if (Objects.equals(startFrom, "")) {
-            vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, 5.131)
+            vkApiServiceNews.getNews(typesNews.get(typeNews), Integer.valueOf(Objects.requireNonNull(userId)), token, 5.131)
                     .enqueue(new NewsCallback());
         } else {
-            vkApiServiceNews.getNews(typeNews, Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
+            vkApiServiceNews.getNews(typesNews.get(typeNews), Integer.valueOf(Objects.requireNonNull(userId)), token, startFrom, 5.131)
                     .enqueue(new NewsCallback());
         }
+    }
+
+    public String getTypeNews() {
+        return typeNews;
     }
 
     public List<Post> getPostList() {
@@ -169,7 +178,7 @@ public class VKApiServiceNewsImplementation {
 //                if (vkNewsItems.getMarkedAsAds() == 0) {
                 Date date = new java.util.Date(vkNewsItems.getDate() * 1000L);
 
-                postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getSourceID()),
+                postList.add(new Post(vkNewsItems.getPostID(), authorsMap.get(vkNewsItems.getOwnerID()),
                         formatter.format(date.getTime()), vkNewsItems.getTextNewsItem(), vkNewsItems.getAttachments(),
                         vkNewsItems.getLikes().getCount(), vkNewsItems.getReposts().getCount()
                 ));
