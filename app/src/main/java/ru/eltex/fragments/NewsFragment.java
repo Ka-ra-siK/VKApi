@@ -90,6 +90,7 @@ public class NewsFragment extends Fragment {
 
         binding.listNews.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
+            bundle.putString("typeNews", "news");
             NewsFragment newsFragment = new NewsFragment(context);
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
@@ -97,6 +98,7 @@ public class NewsFragment extends Fragment {
 
         binding.listRecommended.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
+            bundle.putString("typeNews", "recommended");
             NewsFragment newsFragment = new NewsFragment(context);
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
