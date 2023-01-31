@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Map;
 
-import ru.eltex.ImageLoadTask;
+import ru.eltex.utils.ImageLoadTask;
 import ru.eltex.R;
-import ru.eltex.TaskRunner;
+import ru.eltex.utils.TaskRunner;
 import ru.eltex.adapters.news.content.IContent;
 import ru.eltex.instance.Post;
 

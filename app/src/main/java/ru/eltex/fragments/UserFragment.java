@@ -25,16 +25,14 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import ru.eltex.ImageLoadTask;
+import ru.eltex.utils.ImageLoadTask;
 import ru.eltex.R;
-import ru.eltex.TaskRunner;
+import ru.eltex.utils.TaskRunner;
 import ru.eltex.adapters.SliderAdapter;
 import ru.eltex.api_service.VKApiService;
+import ru.eltex.utils.VKApiObject;
 import ru.eltex.api_service.user.VKUserResponse;
 import ru.eltex.api_service.user.photo.VKUserPhotoResponse;
-import ru.eltex.api_service.user.photo.VKUserPhotoResponseBody;
 
 public class UserFragment extends Fragment {
 
@@ -78,12 +76,7 @@ public class UserFragment extends Fragment {
         token = sharedPreferences.getString("token", "myToken");
         userId = sharedPreferences.getString("user_id", "myUserId");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.vk.com/method/")
-                .build();
-
-        VKApiService vkApiServiceUser = retrofit.create(VKApiService.class);
+        VKApiService vkApiServiceUser = VKApiObject.getInstance().getVKApi();
 
         vkApiServiceUser.getUser(userId, token).enqueue(new Callback<VKUserResponse>() {
             @SuppressLint("SetTextI18n")
@@ -121,8 +114,8 @@ public class UserFragment extends Fragment {
 
 
         //Просмотр фотографий пользователя
-        VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
-        vkApiServiceUserPhoto.getUserPhoto(userId, token,
+        //VKApiService vkApiServiceUserPhoto = retrofit.create(VKApiService.class);
+        vkApiServiceUser.getUserPhoto(userId, token,
                 "profile", "1", 1,Double.valueOf("5.131")).enqueue(new Callback<VKUserPhotoResponse>() {
             @Override
             public void onResponse(Call<VKUserPhotoResponse> call, Response<VKUserPhotoResponse> response) {

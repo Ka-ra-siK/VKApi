@@ -1,4 +1,4 @@
-package ru.eltex;
+package ru.eltex.utils;
 
 import android.os.Handler;
 import android.os.Looper;

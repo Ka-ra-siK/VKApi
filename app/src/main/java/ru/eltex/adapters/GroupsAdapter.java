@@ -18,9 +18,9 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import java.util.List;
 
-import ru.eltex.ImageLoadTask;
+import ru.eltex.utils.ImageLoadTask;
 import ru.eltex.R;
-import ru.eltex.TaskRunner;
+import ru.eltex.utils.TaskRunner;
 import ru.eltex.api_service.groups.VKGroup;
 
 /**

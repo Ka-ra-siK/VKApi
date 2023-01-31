@@ -19,15 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import ru.eltex.ImageLoadTask;
+import ru.eltex.utils.ImageLoadTask;
 import ru.eltex.R;
-import ru.eltex.TaskRunner;
-import ru.eltex.adapters.news.content.AudioContent;
-import ru.eltex.adapters.news.content.DocContent;
+import ru.eltex.utils.TaskRunner;
 import ru.eltex.adapters.news.content.IContent;
-import ru.eltex.adapters.news.content.LinkContent;
-import ru.eltex.adapters.news.content.PhotoContent;
-import ru.eltex.adapters.news.content.VideoContent;
 import ru.eltex.api_service.news.body.items.VKNewsAttachments;
 
 public class PostContentAdapter extends RecyclerView.Adapter<PostContentAdapter.ViewHolder> {

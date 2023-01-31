@@ -13,11 +13,8 @@ import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import ru.eltex.R;
 import ru.eltex.api_service.VKApiService;
-import ru.eltex.databinding.FragmentNewsBinding;
+import ru.eltex.utils.VKApiObject;
 import ru.eltex.databinding.FragmentWallBinding;
 
 public class WallFragment extends Fragment {
@@ -40,12 +37,7 @@ public class WallFragment extends Fragment {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.vk.com/method/")
-                .build();
-
-        VKApiService vkApiServiceWall = retrofit.create(VKApiService.class);
+        VKApiService vkApiServiceWall = VKApiObject.getInstance().getVKApi();
 
         RecyclerView recyclerView = binding.recyclerView;
 

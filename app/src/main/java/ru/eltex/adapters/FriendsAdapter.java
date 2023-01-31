@@ -15,17 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.util.List;
 import java.util.Objects;
 
-import ru.eltex.ImageLoadTask;
+import ru.eltex.utils.ImageLoadTask;
 import ru.eltex.R;
-import ru.eltex.TaskRunner;
-import ru.eltex.fragments.FriendsAccountFragment;
+import ru.eltex.utils.TaskRunner;
 import ru.eltex.instance.Friend;
 
 public class FriendsAdapter extends ArrayAdapter<Friend> {

@@ -28,11 +28,10 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.api_service.VKApiService;
+import ru.eltex.utils.VKApiObject;
 import ru.eltex.api_service.friends.VKFriendsResponse;
 import ru.eltex.instance.Friend;
 
@@ -111,12 +110,7 @@ public class FriendsFragment extends Fragment {
                     isOnline = true;
                 }
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .baseUrl("https://api.vk.com/method/")
-                        .build();
-
-                VKApiService vkApiService = retrofit.create(VKApiService.class);
+                VKApiService vkApiService = VKApiObject.getInstance().getVKApi();
 
                 Log.d("RESPONSE_BODY", order);
 

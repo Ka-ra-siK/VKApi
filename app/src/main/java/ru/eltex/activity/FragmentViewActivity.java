@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,6 @@ import ru.eltex.R;
 import ru.eltex.databinding.ActivityFragmentViewBinding;
 import ru.eltex.fragments.FriendsFragment;
 import ru.eltex.fragments.GroupsFragment;
-import ru.eltex.fragments.MessagesFragment;
 import ru.eltex.fragments.NewsFragment;
 import ru.eltex.fragments.UserFragment;
 

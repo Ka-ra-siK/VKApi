@@ -20,15 +20,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
-import ru.eltex.adapters.FriendsAdapter;
 import ru.eltex.adapters.GroupsAdapter;
 import ru.eltex.api_service.VKApiService;
+import ru.eltex.utils.VKApiObject;
 import ru.eltex.api_service.groups.VKGroup;
 import ru.eltex.api_service.groups.VKGroupsResponse;
-import ru.eltex.instance.Friend;
 
 /**
  * Фрагмент отвечающий за получение групп и подготовку к отображению
@@ -77,12 +74,8 @@ public class GroupsFragment extends Fragment {
         ListView groupList = (ListView) view.findViewById(R.id.groups_list);
         groups = new LinkedList<>();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.vk.com/method/")
-                .build();
 
-        VKApiService vkApiService = retrofit.create(VKApiService.class);
+        VKApiService vkApiService = VKApiObject.getInstance().getVKApi();
 
         vkApiService.getGroups(userId, token, filter, 1, fields, 5.131).enqueue(new Callback<VKGroupsResponse>() {
             @Override

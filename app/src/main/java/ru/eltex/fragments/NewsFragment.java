@@ -2,11 +2,8 @@ package ru.eltex.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Movie;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,13 +14,9 @@ import android.view.ViewGroup;
 
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import ru.eltex.R;
 import ru.eltex.adapters.news.NewsAdapter;
 import ru.eltex.adapters.news.NewsLinearLayoutManager;
@@ -34,6 +27,7 @@ import ru.eltex.adapters.news.content.LinkContent;
 import ru.eltex.adapters.news.content.PhotoContent;
 import ru.eltex.adapters.news.content.VideoContent;
 import ru.eltex.api_service.VKApiService;
+import ru.eltex.utils.VKApiObject;
 import ru.eltex.api_service.news.VKApiServiceNewsImplementation;
 import ru.eltex.databinding.FragmentNewsBinding;
 
@@ -56,7 +50,6 @@ public class NewsFragment extends Fragment {
             typeNews = getArguments().getString("typeNews");
         }
 
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("access_preference", Context.MODE_PRIVATE);
 
         binding = FragmentNewsBinding.inflate(getLayoutInflater());
@@ -74,12 +67,7 @@ public class NewsFragment extends Fragment {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.vk.com/method/")
-                .build();
-
-        VKApiService vkApiServiceNews = retrofit.create(VKApiService.class);
+        VKApiService vkApiServiceNews = VKApiObject.getInstance().getVKApi();
         RecyclerView recyclerView = binding.recyclerView;
         VKApiServiceNewsImplementation vkApiServiceNewsImp = new VKApiServiceNewsImplementation(typeNews, token, userId,
                 vkApiServiceNews,
