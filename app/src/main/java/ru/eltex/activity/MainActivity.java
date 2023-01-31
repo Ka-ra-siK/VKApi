@@ -70,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
                 binding = ActivityMainBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
-                replaceFragment(new UserFragment());
+                replaceFragment(new UserFragment(), "user");
                 binding.bottomNavigationView.setOnItemSelectedListener(item -> {
                     switch (item.getItemId()){
                         case R.id.person_menu:
-                            replaceFragment(new UserFragment());
+                            replaceFragment(new UserFragment(), "user");
                             break;
                         case R.id.news_menu:
-                            replaceFragment(new NewsFragment());
+                            replaceFragment(new NewsFragment(), "news");
                             break;
                         case R.id.group_menu:
                             Bundle bundleGroups = new Bundle();
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
                             bundleGroups.putString("fields", "members_count");
                             GroupsFragment groupsFragment = new GroupsFragment();
                             groupsFragment.setArguments(bundleGroups);
-                            replaceFragment(groupsFragment);
+                            replaceFragment(groupsFragment, "groups");
                             break;
                         case R.id.friends_menu:
-                            replaceFragment(new FriendsFragment(this));
+                            replaceFragment(new FriendsFragment(this), "friends");
                             break;
                     }
                     return true;
@@ -96,10 +96,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment, String tag){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_view, fragment); // TODO not web_link
+        fragmentTransaction.replace(R.id.fragment_view, fragment, tag); // TODO not web_link
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
