@@ -47,9 +47,7 @@ public class GroupsFragment extends Fragment {
      */
     private String fields;
 
-    public GroupsFragment(String filter, String fields) {
-        this.filter = filter;
-        this.fields = fields;
+    public GroupsFragment() {
     }
 
     @Nullable
@@ -65,8 +63,10 @@ public class GroupsFragment extends Fragment {
          * Проверяем, получаем ли мы id пользователя через
          * SharedPreferences или через Bundle
          */
-        if (bundle != null && !bundle.isEmpty()) {
+        if (bundle != null) {
             userId = bundle.getString("user_id");
+            filter = bundle.getString("filter");
+            fields = bundle.getString("fields");
         } else {
             userId = sharedPreferences.getString("user_id", "myUserId");
         }
@@ -91,7 +91,7 @@ public class GroupsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<VKGroupsResponse> call, Throwable t) {
-                Log.d("GET_GROUPS","onFailure()");
+                Log.d("GET_GROUPS", "onFailure()");
                 Log.e("GET_GROUPS", String.valueOf(t));
             }
         });

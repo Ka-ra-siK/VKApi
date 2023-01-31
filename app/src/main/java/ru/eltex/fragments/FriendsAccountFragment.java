@@ -184,7 +184,9 @@ public class FriendsAccountFragment extends Fragment {
         groupsImg.setOnClickListener(view1 -> {
             Bundle bundleGroups = new Bundle();
             bundleGroups.putString("user_id", friendId);
-            GroupsFragment groupsFragment = new GroupsFragment("publics", "members_count");
+            bundleGroups.putString("filter", "publics");
+            bundleGroups.putString("fields", "members_count");
+            GroupsFragment groupsFragment = new GroupsFragment();
             groupsFragment.setArguments(bundleGroups);
             getActivity()
                     .getSupportFragmentManager()

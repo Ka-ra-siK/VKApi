@@ -57,10 +57,15 @@ public class FragmentViewActivity extends AppCompatActivity {
                     replaceFragment(new UserFragment());
                     break;
                 case R.id.news_menu:
-                    replaceFragment(new NewsFragment(this));
+                    replaceFragment(new NewsFragment());
                     break;
                 case R.id.group_menu:
-                    replaceFragment(new GroupsFragment("groups,publics", "members_count"));
+                    Bundle bundleGroups = new Bundle();
+                    bundleGroups.putString("filter", "groups,publics");
+                    bundleGroups.putString("fields", "members_count");
+                    GroupsFragment groupsFragment = new GroupsFragment();
+                    groupsFragment.setArguments(bundleGroups);
+                    replaceFragment(groupsFragment);
                     break;
                 case R.id.friends_menu:
                     replaceFragment(new FriendsFragment(this));

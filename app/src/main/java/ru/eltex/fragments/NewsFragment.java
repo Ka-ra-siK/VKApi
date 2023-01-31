@@ -33,13 +33,11 @@ import ru.eltex.databinding.FragmentNewsBinding;
 
 public class NewsFragment extends Fragment {
 
-    private final Context context;
     private FragmentNewsBinding binding;
 
     private static final Map<String, Parcelable> save = new HashMap<>();
 
-    public NewsFragment(Context context) {
-        this.context = context;
+    public NewsFragment() {
     }
 
     @Override
@@ -73,13 +71,13 @@ public class NewsFragment extends Fragment {
                 vkApiServiceNews,
                 recyclerView, formatter);
 
-        recyclerView.setLayoutManager(new NewsLinearLayoutManager(context, vkApiServiceNewsImp));
-        recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), context, storageContentReceivers));
+        recyclerView.setLayoutManager(new NewsLinearLayoutManager(getContext(), vkApiServiceNewsImp));
+        recyclerView.setAdapter(new NewsAdapter(vkApiServiceNewsImp.getPostList(), getContext(), storageContentReceivers));
 
         binding.listNews.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
             bundle.putString("typeNews", "news");
-            NewsFragment newsFragment = new NewsFragment(context);
+            NewsFragment newsFragment = new NewsFragment();
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
         });
@@ -87,7 +85,7 @@ public class NewsFragment extends Fragment {
         binding.listRecommended.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
             bundle.putString("typeNews", "recommended");
-            NewsFragment newsFragment = new NewsFragment(context);
+            NewsFragment newsFragment = new NewsFragment();
             newsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, newsFragment).commit();
         });

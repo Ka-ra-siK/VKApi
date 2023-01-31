@@ -158,7 +158,9 @@ public class UserFragment extends Fragment {
         groupsImg.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
             bundle.putString("user_id", userId);
-            GroupsFragment groupsFragment = new GroupsFragment("groups,publics", "members_count");
+            bundle.putString("filter", "groups,publics");
+            bundle.putString("fields", "members_count");
+            GroupsFragment groupsFragment = new GroupsFragment();
             groupsFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_view, groupsFragment).commit();
         });
